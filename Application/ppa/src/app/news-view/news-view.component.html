@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-title><h2>News Section</h2></mat-card-title>
+  <div fxLayout="column" fxLayoutGap.="2%">
+    <!--Loop the newsList array and display the news items-->
+      <div *ngFor="let news of newsList" class="news">
+        <br>
+        <h4>{{news.title}}</h4>
+        <p>{{news.description}}</p>
+        <!--Following div tag only activates if a link is provided-->
+        <div *ngIf="news.link">
+            <a [href]="news.link" target="_blank">{{news.link}}</a>
+            <br><br>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+  </div>
+</mat-card>

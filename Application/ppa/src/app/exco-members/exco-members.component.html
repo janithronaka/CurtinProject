@@ -1,0 +1,167 @@
+<div>
+
+        <mat-card>
+
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="2%" fxLayoutAlign="start">
+
+          <mat-card fxFlex="40%">
+              <form name="comittee_form" (ngSubmit)="addComittee(comittee_form)" #comittee_form="ngForm" >
+            <div>
+                <input id="reqID" name="reqID" type="hidden" [(ngModel)]="reqID">
+              <mat-form-field class="fromD">
+                <input matInput
+                [matDatepicker]="picker1"
+                placeholder="From"
+                [min]="minDate"
+                name="from"
+                #from="ngModel"
+                [(ngModel)]="date_form"
+                required >
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field class="toD">
+                <input matInput
+                 [matDatepicker]="picker2"
+                  placeholder="To"
+                  [min]="minDate"
+                  name="to"
+                  #to="ngModel"
+                  [(ngModel)]="date_to"
+                  required >
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div>
+            <mat-form-field class="memID">
+              <input matInput
+              type="text"
+              placeholder="Member ID"
+              name="MemID"
+              #MemID="ngModel"
+              [(ngModel)]="memberID"
+              (keyup)="getData()"
+              required
+              >
+            </mat-form-field>
+            </div>
+            <div>
+            <mat-form-field class="select_position">
+              <mat-select required placeholder="Select Position"
+              name="position"
+              #position="ngModel"
+              [(ngModel)]="position_select">
+                <mat-option value="President">President</mat-option>
+                <mat-option value="Secretary">Secretary</mat-option>
+                <mat-option value="Accountent">Accountent</mat-option>
+                <mat-option value="Admin">Admin</mat-option>
+              </mat-select>
+            </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field class="memName">
+                <input matInput
+                 type="text"
+                  placeholder="Member Name"
+                  name="Mname"
+                  #Mname="ngModel"
+                  [(ngModel)]="memberName"
+                  readonly>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="memphone">
+                <input matInput
+                 type="text"
+                 placeholder="Mobile No"
+                 name="mobiPhone"
+                 #mobiPhone="ngModel"
+                 [(ngModel)]="mobilePhone"
+                 readonly>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="4%" fxLayoutAlign="center" >
+              <button mat-raised-button color="primary" type="submit">Submit</button>
+
+              <button mat-raised-button color="accent" type="button" (click)="onEdit()">Edit</button>
+              <button mat-raised-button color="warn" type="button" (click)="onDelete()">Delete</button>
+             </div>
+            </form>
+
+
+        </mat-card>
+
+
+
+        <table mat-table [dataSource]="exco" class="mat-elevation-z8" id="tblMember">
+
+
+          <ng-container matColumnDef="memberID">
+            <th mat-header-cell *matHeaderCellDef> Member ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.memberID}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="memberName">
+            <th mat-header-cell *matHeaderCellDef> Member Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.memberName}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="mobileNo">
+            <th mat-header-cell *matHeaderCellDef> Mobile No </th>
+            <td mat-cell *matCellDef="let element"> {{element.mobileNo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> Position </th>
+            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="date_from">
+            <th mat-header-cell *matHeaderCellDef> From </th>
+            <td mat-cell *matCellDef="let element"> {{element.date_from}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="date_to">
+            <th mat-header-cell *matHeaderCellDef> To </th>
+            <td mat-cell *matCellDef="let element"> {{element.date_to}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"><button mat-button color="primary" (click)="getfrombtnEdit(element._id)">Select</button></td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        </div>
+
+        <br>
+        <div>
+        <mat-card fxFlex="40%">
+          <div>
+           <h4 class="com_lbl">This Year Committee Members</h4>
+           <mat-label><b>President :- </b></mat-label>
+           <mat-label *ngFor="let arr of yearPresident" class="lbl_mem"><b>{{arr}}</b></mat-label><br>
+           <mat-label><b>Secretary :- </b></mat-label>
+           <mat-label *ngFor="let arr of yearsecretary" class="lbl_mem"><b>{{arr}}</b></mat-label><br>
+           <mat-label><b>Accountent :- </b></mat-label>
+           <mat-label *ngFor="let arr of yearaccountent" class="lbl_mem"><b>{{arr}}</b></mat-label><br>
+           <mat-label><b>Admin :- </b></mat-label>
+           <mat-label *ngFor="let arr of yearadmin" class="lbl_mem"><b>{{arr}}</b></mat-label>
+          </div>
+
+        </mat-card>
+        </div></mat-card>
+</div>
+
+
+
+
+

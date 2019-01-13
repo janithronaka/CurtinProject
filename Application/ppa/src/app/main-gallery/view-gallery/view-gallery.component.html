@@ -1,0 +1,23 @@
+<div class="main-view-div">
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <mat-grid-list cols="4" rowHeight='300px' *ngIf="!loading && images.length > 0">
+    <mat-grid-tile *ngFor="let imgcard of images" style="height: calc(100vh - 50px)">
+      <div class="photo-card">
+        <div class="image-view">
+          <a [href]="imgcard.imagePath" rel="noopener noreferrer" target="_blank">
+            <img class="image-item" [src]="imgcard.imagePath" [alt]= "imgcard.title">
+          </a>
+        </div>
+        <div class="img-admin">
+            <button mat-button color="warn" (click)="onDelete(imgcard.id)">DELETE</button>
+        </div>
+        <div class="scroll-div">
+          {{ imgcard.desc }}
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-paginator [length]="totalImages" [pageSizeOptions]="pageSizeOption" [pageSize]="imagesPerPage" (page)="(onPageChanged($event))" *ngIf="images.length > 0"></mat-paginator>
+  <p class="no-image-info mat-body-1" *ngIf="images.length < 1">No Imags</p>
+</div>
+

@@ -1,0 +1,61 @@
+<mat-card class="table-container">
+  <mat-card-title>Accounts</mat-card-title>
+  <mat-form-field>
+    <mat-select [(ngModel)]="filterOption" placeholder="Filter by">
+      <mat-option value="all">All</mat-option>
+      <mat-option value="account">Account ID</mat-option>
+      <mat-option value="desc">Description</mat-option>
+      <mat-option value="status">Status</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="filterString" placeholder="Filter">
+  </mat-form-field>
+  <button mat-icon-button (click)="onSearch()">
+    <mat-icon>search</mat-icon>
+  </button>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <div class="tab-container mat-elevation-z8">
+    <mat-table [dataSource]="accountData" *ngIf="!loading">
+      <!-- Account ID Column -->
+      <ng-container matColumnDef="accId">
+        <mat-header-cell *matHeaderCellDef> Account ID </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.accId}} </mat-cell>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="desc">
+        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.desc}} </mat-cell>
+      </ng-container>
+
+      <!-- State Column -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell class="mat-column-status" *matHeaderCellDef> Status </mat-header-cell>
+        <mat-cell class="mat-column-status" *matCellDef="let element"> {{element.status}} </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actionsColumn">
+        <mat-header-cell class="action-cell" *matHeaderCellDef>
+          <span class="spacer"></span>
+          <a mat-list-item [routerLink]="['/accounts-add']"><button mat-raised-button color="accent">Create new</button></a>
+        </mat-header-cell>
+        <mat-cell class="action-cell" *matCellDef="let element">
+          <a mat-list-item *ngIf="element.status === 'Open'" [routerLink]="['/transactions-add', element.accId]"><button mat-button color="primary">Add
+              Entry</button></a>
+          <a mat-list-item [routerLink]="['/transactions-all', element.accId]"><button mat-button color="primary">View
+              Entries</button></a>
+          <a mat-list-item [routerLink]="['/accounts-edit', element.accId]"><button mat-button color="primary">Edit</button></a>
+          <button mat-button color="warn" (click)="onDelete(element)">Delete</button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': selectedRowIndex == row.id}"
+        (click)="highlight(row)"></mat-row>
+    </mat-table>
+  </div>
+  <mat-paginator class="mat-elevation-z8" [length]="totalAccounts" [pageSizeOptions]="pageSizeOption" [pageSize]="accountsPerPage" (page)="(onPageChanged($event))"
+    *ngIf="accountData.length > 0"></mat-paginator>
+</mat-card>

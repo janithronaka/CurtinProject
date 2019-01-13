@@ -1,0 +1,33 @@
+<div fxLayout="column">
+  <br>
+    <button   mat-mini-fab color="primary"
+              (click)="onAddNew()"
+              fxFlexAlign="end"
+              matTooltip="Add New Complain or Suggestion"
+              aria-label="Button that displays a tooltip when focused or hovered over"><mat-icon>add</mat-icon></button>
+    <div *ngFor="let comment of detailedComments">
+        <div *ngIf="(comment.adminOnly === '0') || (comment.adminOnly === '1' && loggedUser === comment.memberId)">
+            <div fxLayout="row" fxLayoutGap="1%" fxLayoutAlign="start center">
+                <p class="circle"> {{comment.nameLetters}}</p>
+                <p class="verticleCenter">{{comment.preferredName}}</p>
+                <!--the following tag only visible if the suggestion or the complaint is relevant to a subproject-->
+                <p *ngIf="comment.subProjectId !== '' && comment.subProjectId != null"> (Related to the task {{comment.subProjectId}})</p>
+            </div>
+            <!--app-read-more-util component responsible for displaying the comment and title-->
+            <app-read-more-util [title]="comment.title" [comment]="comment.comment" [maxLength]="100"></app-read-more-util>
+            <div fxLayout="row wrap">
+              <div fxLayout="row wrap" fxLayoutAlign="end stretch" fxFlex="62" *ngIf="loggedUser === comment.memberId">
+                <button mat-icon-button (click)="onEditComment(comment)">
+                    <mat-icon aria-label="Edit button with an edit icon">edit</mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="onDeleteComment(comment._id)">
+                    <mat-icon aria-label="Delete button with a delete icon">delete</mat-icon>
+                  </button>
+              </div>
+            </div>
+            <br>
+            <mat-divider></mat-divider>
+            <br>
+        </div>
+    </div>
+</div>

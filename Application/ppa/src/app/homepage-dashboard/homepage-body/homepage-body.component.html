@@ -1,0 +1,100 @@
+<html>
+
+<body>
+<slideshow
+[height]="'50%'"
+[minHeight]="'525px'"
+[autoPlay]="true"
+[showArrows]="true"
+[imageUrls]="imagesUrl"
+[lazyLoad]="imagesUrl.length > 1"
+[backgroundSize]="'cover'"
+[backgroundRepeat]="'no-repeat'"
+[autoPlayWaitForLazyLoad]="true" [imageUrls]="imagesUrl"></slideshow>
+<div>
+  <ng-content></ng-content>
+</div>
+<br>
+<div>
+<mat-card class="prin_message">
+
+    <h3>
+        Principals Message
+      </h3>
+      <img srcset="../../assets/icons/Webp.net-resizeimage.jpg">
+  <p>
+    Knowledge, skills, and Attitudes together will form the learning domain. out of this the attitude is the most important. School is an environment where knowledge is fed to the skill and competencies are built. While developing a child within the scope of education, discipline and respect it is a must a child should develop a spiritual mind which will allow the student add value to the society when she becomes an adult. As the principal of Sirimavo Bandaranaike Vidyalaya would like to encourage all my pupils to obey this message and adopt an intellectual lifestyle.
+  </p>
+
+</mat-card>
+<mat-card class="pre_message">
+
+    <h3>
+        Presidents Message
+      </h3>
+      <img srcset="../../assets/icons/0.jpg">
+  <p>
+      Welcome to Sirimavo College  one of the most beautiful and multicultural school in the world. Our programs, faculty, and students bring a unique international perspective to studying management and business issues. Sirimavo is a ‘living laboratory’ for learning about different cultures, business environments, and management practices in other parts of the world. You learn in small classroom settings where faculty are able to focus more on your individual learning needs and where you truly get to know other students.
+
+
+  </p>
+
+</mat-card>
+<br>
+
+<div class="card_section">
+<div fxLayout.lt-md="column" fxLayoutAlign="space between"  fxLayoutGap="2%" fxLayoutAlign="start">
+  <mat-card fxFlex="32%" class="news_section">
+    <mat-card-title><h1 class="h1">News Section</h1></mat-card-title>
+    <mat-card-content>
+      <div *ngFor="let news of newsList" class="news">
+        <br>
+        <h4>{{news.title}}</h4>
+        <p>{{news.description}}</p>
+        <div *ngIf="news.link">
+            <a [href]="news.link" target="_blank">{{news.link}}</a>
+            <br><br>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card fxFlex="32%" class="news_section">
+    <mat-card-content>
+     <!-- <mat-calendar name="calen" #calen="ngModel" [(ngModel)]="calender" (mouseover)="getDate()"  ngDefaultControl></mat-calendar> -->
+     <div>
+    <!--  <input [matDatepicker]="picker" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker> -->
+      <mat-calendar class="cal" [selected]= "calender"
+      (selectedChange)="selectedChange($event)"
+      (click)="user($event)"
+       >
+      </mat-calendar>
+
+     </div>
+    </mat-card-content>
+ </mat-card>
+
+
+  <mat-card fxFlex="32%" class="news_section" ngDefaultControl>
+    <mat-card-title><h1 class="h1">Project Section</h1></mat-card-title>
+    <mat-card-content>
+      <div *ngFor="let project of projectList" class="news">
+        <br>
+        <h4>{{project.name}}</h4>
+        <p>{{project.description}}</p>
+    <mat-divider></mat-divider>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>
+</div>
+</div>
+</body>
+</html>
+
+
+

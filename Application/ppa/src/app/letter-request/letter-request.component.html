@@ -1,0 +1,74 @@
+<div class="container">
+  <div id="content">
+    <div fxLayout="row" fxLayoutGap="5%">
+      <mat-card fxFlex="60">
+        <mat-card-title>
+          <h3>Letter Request Form</h3>
+        </mat-card-title>
+        <mat-card-content>
+          <form name="letterForm" (ngSubmit)="onAddRequest(letterForm)" #letterForm="ngForm">
+              <input id="reqID" name="reqID" type="hidden" [(ngModel)]="reqID">
+            <mat-label name="memberID" id="memberID">Member ID:-<b> {{memberID}} </b></mat-label><br><br><br>
+            <div fxLayout="column" fxLayoutGap="2%">
+              <!--combo box-->
+                <mat-form-field class="select">
+                    <mat-select placeholder="Letter Types" required
+                    name="select"
+                    #select="ngModel"
+                    [(ngModel)]="Select"
+                    >
+                      <mat-option value="Committee Service Letter">
+                          Committee Service Letter
+                      </mat-option>
+                      <mat-option value="Event/Project Details Request Letter">
+                         Event/Project Details Request Letter
+                      </mat-option>
+                      <mat-option value="Event/Project Budget Request Letter">
+                        Event/Project Budget Request Letter
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                      <textarea class="remark" matInput
+                      placeholder="Remark"
+                      name="remark"
+                      #remark="ngModel"
+                      [(ngModel)]="Remark"
+                      ></textarea>
+                  </mat-form-field>
+
+                  <mat-form-field appearence="outline">
+                      <mat-label>Needed Before</mat-label>
+                      <input matInput
+                      name="exDate"
+                      [min]="minDate"
+                      [matDatepicker]="picker"
+                      placeholder="Choose a date"
+                      [(ngModel)]="expireDate"
+                      disabled="true" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false"></mat-datepicker>
+                  </mat-form-field>
+                  <div fxLayout="row" fxLayoutGap="4%" fxLayoutAlign="end" >
+                      <button mat-raised-button type="submit" color="primary">{{submitBtnName}}</button>
+                      <button mat-button fxFlexAlign="start" (click)="onDelete()" color="warn" [disabled]="disableDelete">Delete</button>
+                      <button mat-raised-button (click)="onCancel(letterForm)">Cancel</button>
+                   </div>
+            </div>
+
+          </form>
+        </mat-card-content>
+       </mat-card>
+       <div fxFlex="40%">
+          <mat-nav-list *ngFor="let request of requestList">
+             <mat-list-item (click)="onEdit(request)">
+                <a matLine >{{request.type}}</a>
+                <a matLine >{{request.progress}}</a>
+                <mat-icon>edit</mat-icon>
+             </mat-list-item>
+          </mat-nav-list>
+       </div>
+    </div>
+  </div>
+</div>

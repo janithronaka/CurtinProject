@@ -1,0 +1,50 @@
+<form #frmCreatePost="ngForm" (ngSubmit)="createPost(frmCreatePost)">
+  <div fxLayout="column wrap">
+    <mat-form-field>
+      <textarea matInput placeholder="Project Updates" #description="ngModel" name="description" [(ngModel)]="newPost.description"
+        required></textarea>
+    </mat-form-field>
+  </div>
+  <br />
+  <div fxLayout="row" fxLayoutGap="1%" fxLayoutAlign="start end" fxLayout.lt-sm="column">
+    <button mat-raised-button type="submit">Create</button>
+    <input type="file" name="attachments" (change)="fileChange($event)" placeholder="Upload file" multiple />
+  </div>
+</form>
+<div *ngFor="let post of posts">
+  <div class="post">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <h4>{{userFullName}}</h4>
+        </mat-card-title>
+        <mat-card-subtitle>{{post.createdDate.toLocaleString('en-GB', { timeZone: 'Asia/Kolkata' })}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        {{post.description}}
+        <div class="attachments">
+          <div class="attachment-container" *ngFor="let attachment of post.attachments">
+            <div class="attachment">
+              <a class="attachment" href={{attachment.fileUrl}}>
+                <img class="attachment" width="50px" height="50px" *ngIf="attachment.fileType.includes('image'); else doc" src={{attachment.fileUrl}} />
+                <ng-template #doc>
+                  <div fxLayout="row" fxLayoutGap="1%">
+                    <div fxLayout="row" fxLayoutAlign="center" style="width:20px; height:20px; background-color:blueviolet"></div>
+                    <p class="attachment">{{attachment.fileName}}</p>
+                  </div>
+                </ng-template>
+              </a>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <br>
+      <mat-card-footer>
+        <div class="footer-buttons">
+          <!-- <button mat-raised-button color="accent">Edit</button> -->
+          <button mat-raised-button color="danger" (click)="deletePost(post)">Delete</button>
+        </div>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>

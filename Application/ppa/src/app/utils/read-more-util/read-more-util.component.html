@@ -1,0 +1,10 @@
+<div class="comment" fxFlex="60">
+    <div fxLayout="row" fxLayout.lt-md="column">
+      <h6 ngClass="comment-data" ngClass.lt-md="comment-title-md" fxFlex="80">{{title}}</h6>
+      <a fxFlex="20" ngClass="comment-data" ngClass.lt-md="comment-data-md" (click)="toggleView()" routerLink="." *ngIf="isCollapsable">Read {{isCollapsed ? 'More':'Less'}}</a>
+    </div>
+    <div fxLayout="row" class="comment-data">
+        <div [innerHTML]="currentText">
+          </div>
+    </div>
+</div>

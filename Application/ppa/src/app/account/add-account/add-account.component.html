@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-title>{{formTitle}}</mat-card-title>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <form [formGroup]="form" #formDirective="ngForm" *ngIf="!loading" (submit)="onSaveAccount(formDirective)">
+    <mat-form-field>
+      <input matInput type="text" formControlName="accId" placeholder="Account ID">
+      <mat-error *ngIf="form.get('accId').invalid">Please enter an Account ID.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput rows="3" formControlName="desc" placeholder="Description"></textarea>
+      <mat-error *ngIf="form.get('desc').invalid">Please enter a account description.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Status" formControlName="status" [(value)]="selected">
+        <mat-option *ngFor="let status of states" [value]="status.value">
+          {{status.viewValue}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('status').invalid">Please select a state.</mat-error>
+    </mat-form-field>
+    <br/><br/>
+    <button disabled mat-raised-button color="accent" *ngIf="isSave" ><mat-spinner [diameter]="35" class = "save-spinner" *ngIf="isSave"></mat-spinner></button>
+    <button mat-raised-button color="accent" *ngIf="!isSave" type="submit">Save Account</button>
+  </form>
+</mat-card>

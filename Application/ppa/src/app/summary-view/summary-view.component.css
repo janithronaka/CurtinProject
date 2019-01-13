@@ -1,0 +1,39 @@
+#content{
+  padding: 10px 20px 10px 20px;
+}
+
+.card{
+  padding: 10px 10px;
+  text-align: center;
+  border-color: blueviolet;
+  margin-left: 20px;
+}
+
+#h1_custom{
+  font-size: 1300%;
+}
+
+#h2_custom{
+  font-size: 300%;
+}
+
+#h2_custom{
+  font-size: 400%
+}
+
+.dashboard-tile {
+  max-width: 400px;
+  align-items: center;
+}
+
+.mat-card-title{
+  text-align: center;
+}
+
+.mat-card-content{
+  text-align: center;
+}
+
+.mat-card-actions{
+  text-align: center;
+}

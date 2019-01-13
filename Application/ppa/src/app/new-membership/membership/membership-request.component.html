@@ -1,0 +1,784 @@
+<div id="content">
+    <div fxLayout="row">
+       <mat-card fxFlex="100">
+          <mat-card-title>
+             <h2>Apply For Membership</h2>
+             <br>
+             <h4>{{stepHeading}}</h4>
+          </mat-card-title>
+          <mat-card-content>
+             <mat-horizontal-stepper #stepper
+             (selectionChange)="onStepperChange($event, stepper)">
+             <mat-step [stepControl]="personalDetails">
+                <form [formGroup]="personalDetails">
+                   <br>
+                   <div fxLayout="column">
+                     <div>
+                        <mat-form-field fxFlex = "64">
+                            <input matInput placeholder="Name (in NIC)" formControlName="memberName" required>
+                            <mat-error *ngIf="personalDetails.get('memberName').invalid">
+                               Name is required
+                            </mat-error>
+                         </mat-form-field>
+                     </div>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "47">
+                            <input matInput placeholder="Preferred Name" formControlName="preferredName" required>
+                            <mat-error *ngIf="personalDetails.get('preferredName').invalid">
+                                Preferred name is required
+                            </mat-error>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "15">
+                            <input matInput placeholder="National ID No" formControlName="nicNo" required>
+                            <mat-error *ngIf="personalDetails.get('nicNo').invalid">
+                               National ID No is required
+                            </mat-error>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "20">
+                            <input matInput [matDatepicker]="picker" placeholder="Date of Birth" formControlName="memberDob" required>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker disabled="false"></mat-datepicker>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Nationality" formControlName="nationality">
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Religion" formControlName="religion">
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "20">
+                            <input matInput [matDatepicker]="addmissionPicker" placeholder="Addmission (SBV)" formControlName="addmisionDate" required>
+                            <mat-datepicker-toggle matSuffix [for]="addmissionPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #addmissionPicker disabled="false"></mat-datepicker>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Addmission No" formControlName="addmissionNo">
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "20">
+                            <input matInput [matDatepicker]="leavingPicker" placeholder="Leaving (SBV)" formControlName="leavingDate" required>
+                            <mat-datepicker-toggle matSuffix [for]="leavingPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #leavingPicker disabled="false"></mat-datepicker>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "20">
+                            <input matInput [matDatepicker]="registrationPicker" placeholder="Registration (OGA)" formControlName="registrationDate" required>
+                            <mat-datepicker-toggle matSuffix [for]="registrationPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #registrationPicker disabled="false"></mat-datepicker>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Life Membership Receipt No" formControlName="receiptNo">
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "20">
+                            <mat-select placeholder="Civil Status" formControlName="civilStatus" (selectionChange)="onCivilStatusChange($event)">
+                               <mat-option value="single">Single</mat-option>
+                               <mat-option value="married">Married</mat-option>
+                            </mat-select>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="No of Children" formControlName="childrenCount">
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div>
+                         <mat-form-field fxFlex = "42">
+                            <textarea matInput placeholder="Address" formControlName="homeAddress" rows="4" required></textarea>
+                            <mat-error *ngIf="personalDetails.get('homeAddress').invalid">
+                               Address is required
+                            </mat-error>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Telephone" formControlName="homeTel">
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Mobile" formControlName="mobileNo" required>
+                            <mat-error *ngIf="personalDetails.get('mobileNo').invalid">
+                               Mobile No is required
+                            </mat-error>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Email" formControlName="personalEmail">
+                            <mat-error *ngIf="personalDetails.get('personalEmail').invalid">
+                               Invalid Email Address
+                            </mat-error>
+                         </mat-form-field>
+                      </div>
+                      <br> <br>
+                      <div>
+                         <button mat-button (click)="resetFormFields(stepper)">Reset</button>
+                         <button mat-raised-button (click)="nextStep(stepper)" color="primary">Next</button>
+                      </div>
+                   </div>
+                </form>
+             </mat-step>
+             <mat-step [stepControl]="occupationDetails">
+                <form [formGroup]="occupationDetails">
+                   <br>
+                   <div fxLayout="column">
+                      <div>
+                         <mat-form-field fxFlex="42">
+                            <input matInput placeholder="Occupation" formControlName="memberOccup" required>
+                            <mat-error *ngIf="occupationDetails.get('memberOccup').invalid">
+                               Occupation is required
+                            </mat-error>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div>
+                         <mat-form-field fxFlex="42">
+                            <input matInput placeholder="Subject Area of Occupation" formControlName="memberWorkArea" required>
+                            <mat-error *ngIf="occupationDetails.get('memberWorkArea').invalid">
+                               Subject Area of Occupation is required
+                            </mat-error>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div>
+                         <mat-form-field fxFlex="42">
+                            <input matInput placeholder="Name of the Institute" formControlName="memberEmployer" required>
+                            <mat-error *ngIf="occupationDetails.get('memberEmployer').invalid">
+                               Institute name is required
+                            </mat-error>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div>
+                         <mat-form-field fxFlex="42">
+                            <textarea matInput placeholder="Address" formControlName="memberWorkAddress" rows="4"></textarea>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Telephone" formControlName="memberWorkTel" >
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Email" formControlName="memberWorkEmail">
+                            <mat-error *ngIf="occupationDetails.get('memberWorkEmail').invalid">
+                               Invalid Email Address
+                            </mat-error>
+                         </mat-form-field>
+                      </div>
+                   </div>
+                   <div>
+                      <button mat-button (click)="previousStep(stepper)">Back</button>
+                      <button mat-button (click)="resetFormFields(stepper)">Reset</button>
+                      <button mat-raised-button (click)="nextStep(stepper)" color="primary">Next</button>
+                   </div>
+                </form>
+             </mat-step>
+             <mat-step [stepControl]="educationalDetails">
+                <form [formGroup]="educationalDetails">
+                   <br>
+                   <div fxLayout="column">
+                      <div fxLayout="row " fxLayoutGap="10%">
+                         <h6 fxFlex="15">G.C.E. O/L</h6>
+                         <h6 fxFlex="15">G.C.E. A/L</h6>
+                      </div>
+                      <div fxLayout="row " fxLayoutGap="10%">
+                         <mat-form-field fxFlex = "15">
+                            <input matInput placeholder="Year of First Sitting" formControlName="olYear" required>
+                            <mat-error *ngIf="educationalDetails.get('olYear').invalid">
+                               Invalid Year
+                            </mat-error>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "15">
+                            <input matInput placeholder="Year of First Sitting" formControlName="alYear">
+                            <mat-error *ngIf="educationalDetails.get('alYear').invalid">
+                               Invalid Year
+                            </mat-error>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <mat-card formArrayName="degreeDetails">
+                         <h5>Degree or Doctorate Qualification Details</h5>
+                         <div *ngFor="let rowData of  allDegreeRows.controls; let i=index;">
+                            <mat-divider *ngIf="allDegreeRows.controls.length > 1 && i > 0" ></mat-divider>
+                            <br>
+                            <div [formGroupName]="i">
+                               <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                                  <mat-form-field fxFlex="60%">
+                                     <input matInput placeholder="Degree Program or Doctorate" formControlName="degreeProgram">
+                                     <mat-error *ngIf="rowData.get('degreeProgram').invalid">
+                                        Programe name is required
+                                     </mat-error>
+                                  </mat-form-field>
+                                  <mat-form-field fxFlex="30%">
+                                     <input matInput placeholder="University Name" formControlName="university">
+                                     <mat-error *ngIf="rowData.get('university').invalid">
+                                        University name is required
+                                     </mat-error>
+                                  </mat-form-field>
+                                  <mat-form-field fxFlex="10%">
+                                     <input matInput placeholder="Year" formControlName="Degreeyear">
+                                     <mat-error *ngIf="rowData.get('Degreeyear').invalid">
+                                        Invalid Year
+                                     </mat-error>
+                                  </mat-form-field>
+                                  <button mat-mini-fab color="warn"
+                                  *ngIf="allDegreeRows.controls.length > 1" (click)="removeDegreeRow(i)">
+                                  <mat-icon>delete forever</mat-icon>
+                                  </button>
+                               </div>
+                            </div>
+                         </div>
+                         <mat-divider></mat-divider>
+                         <mat-card-actions>
+                            <button mat-raised-button (click)="addDegreeRow()">
+                               <mat-icon>add box</mat-icon>
+                               Add New
+                            </button>
+                         </mat-card-actions>
+                      </mat-card>
+                   </div>
+                   <br>
+                   <div>
+                      <button mat-button (click)="previousStep(stepper)">Back</button>
+                      <button mat-button (click)="resetFormFields(stepper)">Reset</button>
+                      <button mat-raised-button (click)="nextStep(stepper)" color="primary">Next</button>
+                   </div>
+                </form>
+             </mat-step>
+             <mat-step [stepControl]="otherDetails">
+                <form [formGroup]="otherDetails">
+                   <br>
+                   <mat-card formArrayName="otherQualif">
+                      <h5>Other Qualification Details</h5>
+                      <div *ngFor="let rowData of allDiplomaRows.controls; let i=index;">
+                         <mat-divider *ngIf="allDiplomaRows.controls.length > 1 && i > 0" ></mat-divider>
+                         <br>
+                         <div [formGroupName]="i">
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                               <mat-form-field fxFlex="60%">
+                                  <input matInput placeholder="Diploma/ Certificate" formControlName="diplomaName">
+                               </mat-form-field>
+                               <mat-form-field fxFlex="30%">
+                                  <input matInput placeholder="Institute Name" formControlName="institute">
+                               </mat-form-field>
+                               <mat-form-field fxFlex="10%">
+                                  <input matInput placeholder="Year" formControlName="diplomaYear">
+                               </mat-form-field>
+                               <button mat-mini-fab color="warn"
+                               *ngIf="allDiplomaRows.controls.length > 1" (click)="removeDiplomaRow(i)">
+                               <mat-icon>delete forever</mat-icon>
+                               </button>
+                            </div>
+                         </div>
+                      </div>
+                      <mat-divider></mat-divider>
+                      <mat-card-actions>
+                         <button mat-raised-button (click)="addDiplomaRow()">
+                            <mat-icon>add box</mat-icon>
+                            Add New
+                         </button>
+                      </mat-card-actions>
+                   </mat-card>
+                   <br>
+                   <div>
+                      <button mat-button (click)="previousStep(stepper)">Back</button>
+                      <button mat-button (click)="stepper.reset()">Reset</button>
+                      <button mat-raised-button (click)="nextStep(stepper)" color="primary">Next</button>
+                   </div>
+                </form>
+             </mat-step>
+             <mat-step [stepControl]="interestDetails">
+                <form [formGroup]="interestDetails">
+                   <br>
+                   <mat-card formArrayName="interests">
+                      <h5>Other Interests Details</h5>
+                      <div *ngFor="let rowData of allInterestRows.controls; let i=index;">
+                         <mat-divider *ngIf="allInterestRows.controls.length > 1 && i > 0" ></mat-divider>
+                         <br>
+                         <div [formGroupName]="i">
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                               <mat-form-field fxFlex="30%">
+                                  <input matInput placeholder="Type" formControlName="interestType">
+                               </mat-form-field>
+                               <mat-form-field fxFlex="70%">
+                                  <input matInput placeholder="Description" formControlName="interestDesc">
+                               </mat-form-field>
+                               <button mat-mini-fab color="warn"
+                               *ngIf="allInterestRows.controls.length > 1" (click)="removeInterestRow(i)">
+                               <mat-icon>delete forever</mat-icon>
+                               </button>
+                            </div>
+                         </div>
+                      </div>
+                      <mat-divider></mat-divider>
+                      <mat-card-actions>
+                         <button mat-raised-button (click)="addInterestRow()">
+                            <mat-icon>add box</mat-icon>
+                            Add New
+                         </button>
+                      </mat-card-actions>
+                   </mat-card>
+                   <br>
+                   <div>
+                      <button mat-button (click)="previousStep(stepper)">Back</button>
+                      <button mat-button (click)="stepper.reset()">Reset</button>
+                      <button mat-raised-button (click)="nextStep(stepper)" color="primary">Next</button>
+                   </div>
+                </form>
+             </mat-step>
+             <mat-step [stepControl]="spouseDetails">
+                <form [formGroup]="spouseDetails">
+                   <br>
+                   <div fxLayout="column">
+                      <div>
+                         <mat-form-field fxFlex="42">
+                            <input matInput placeholder="Spouse Name" formControlName="spouseName">
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "20">
+                            <input matInput [matDatepicker]="spouseDobPicker" placeholder="Date of Birth" formControlName="spouseDOB">
+                            <mat-datepicker-toggle matSuffix [for]="spouseDobPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #spouseDobPicker disabled="false"></mat-datepicker>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="National ID" formControlName="spouseNic">
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div>
+                         <mat-form-field fxFlex="42">
+                            <input matInput placeholder="Spouse Occupation" formControlName="spouseOccup">
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div>
+                         <mat-form-field fxFlex="42">
+                            <input matInput placeholder="Subject Area of Occupation" formControlName="spouseWorkArea">
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div>
+                         <mat-form-field fxFlex="42">
+                            <textarea matInput placeholder="Work Address" formControlName="spouseWorkAddress" rows="4"></textarea>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Telephone" formControlName="spouseWorkTel" >
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Email" formControlName="spouseEmail">
+                            <mat-error *ngIf="spouseDetails.get('spouseEmail').invalid">
+                               Invalid Email Address
+                            </mat-error>
+                         </mat-form-field>
+                      </div>
+                   </div>
+                   <div>
+                      <button mat-button (click)="previousStep(stepper)">Back</button>
+                      <button mat-button (click)="stepper.reset()">Reset</button>
+                      <button mat-raised-button (click)="nextStep(stepper)" color="primary">Next</button>
+                   </div>
+                </form>
+             </mat-step>
+             <mat-step [stepControl]="childrenDetails">
+                <form [formGroup]="childrenDetails">
+                   <br>
+                   <mat-card formArrayName="childrenInfo">
+                      <h5>Children Details</h5>
+                      <div *ngFor="let rowData of allChildrenRows.controls; let i=index;">
+                         <mat-divider *ngIf="allChildrenRows.controls.length > 1 && i > 0" ></mat-divider>
+                         <br>
+                         <div [formGroupName]="i">
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                               <mat-form-field fxFlex="60%">
+                                  <input matInput placeholder="Name" formControlName="childName">
+                               </mat-form-field>
+                               <mat-form-field fxFlex="10%">
+                                  <input matInput [matDatepicker]="childDobPicker" placeholder="Date of Birth" formControlName="childDob">
+                                  <mat-datepicker-toggle matSuffix [for]="childDobPicker"></mat-datepicker-toggle>
+                                  <mat-datepicker #childDobPicker disabled="false"></mat-datepicker>
+                               </mat-form-field>
+                               <mat-form-field fxFlex="30%">
+                                  <input matInput placeholder="School" formControlName="childSchool">
+                               </mat-form-field>
+                               <button mat-mini-fab color="warn"
+                               *ngIf="allChildrenRows.controls.length > 1" (click)="removeChildRow(i)">
+                               <mat-icon>delete forever</mat-icon>
+                               </button>
+                            </div>
+                         </div>
+                      </div>
+                      <mat-divider></mat-divider>
+                      <mat-card-actions>
+                         <button mat-raised-button (click)="addChildRow()" [disabled]="isSingle">
+                            <mat-icon>add box</mat-icon>
+                            Add New
+                         </button>
+                      </mat-card-actions>
+                   </mat-card>
+                   <br>
+                   <div>
+                      <button mat-button (click)="previousStep(stepper)">Back</button>
+                      <button mat-button (click)="stepper.reset()">Reset</button>
+                      <button mat-raised-button (click)="nextStep(stepper)" color="primary">Next</button>
+                   </div>
+                </form>
+             </mat-step>
+             <mat-step [stepControl]="referenceDetails">
+                <form [formGroup]="referenceDetails">
+                   <br>
+                   <h6>If you haven't any email address please nominate  person with name and email address of someone who can deliver a message to you.</h6>
+                   <br>
+                   <h6>Details of the nominee</h6>
+                   <br>
+                   <div fxLayout="column">
+                      <div>
+                         <mat-form-field fxFlex="42">
+                            <input matInput placeholder="Name" formControlName="refName">
+                         </mat-form-field>
+                      </div>
+                      <div>
+                         <mat-form-field fxFlex="42">
+                            <input matInput placeholder="Email" formControlName="refEmail">
+                            <mat-error *ngIf="referenceDetails.get('refEmail').invalid">
+                               Invalid Email Address
+                            </mat-error>
+                         </mat-form-field>
+                      </div>
+                   </div>
+                   <br>
+                   <div>
+                      <button mat-button (click)="previousStep(stepper)">Back</button>
+                      <button mat-button (click)="resetFormFields(stepper)">Reset</button>
+                      <button mat-raised-button (click)="nextStep(stepper)" color="primary">Next</button>
+                   </div>
+                </form>
+             </mat-step>
+             <mat-step [stepControl]="reviewPersonal">
+                <form [formGroup]="reviewPersonal" *ngIf="bStep1">
+                <br>
+                <div fxLayout="column">
+                    <div>
+                        <mat-form-field fxFlex = "64">
+                            <input matInput placeholder="Name (in NIC)" formControlName="memberName">
+                         </mat-form-field>
+                    </div>
+                    <div fxLayout="row " fxLayoutGap="2%">
+                       <mat-form-field fxFlex = "47">
+                          <input matInput placeholder="Preferred Name" formControlName="preferredName">
+                       </mat-form-field>
+                       <mat-form-field fxFlex = "15">
+                          <input matInput placeholder="National ID No" formControlName="nicNo">
+                       </mat-form-field>
+                    </div>
+                   <br>
+                   <div fxLayout="row " fxLayoutGap="2%">
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Date of Birth" formControlName="memberDob">
+                      </mat-form-field>
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Nationality" formControlName="nationality">
+                      </mat-form-field>
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Religion" formControlName="religion">
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div fxLayout="row " fxLayoutGap="2%">
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Addmission (SBV)" formControlName="addmisionDate">
+                      </mat-form-field>
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Addmission No" formControlName="addmissionNo">
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div fxLayout="row " fxLayoutGap="2%">
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Leaving (SBV)" formControlName="leavingDate">
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div fxLayout="row " fxLayoutGap="2%">
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Registration (OGA)" formControlName="registrationDate">
+                      </mat-form-field>
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Life Membership Receipt No" formControlName="receiptNo">
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div fxLayout="row " fxLayoutGap="2%">
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Civil Status" formControlName="civilStatus">
+                      </mat-form-field>
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="No of Children" formControlName="childrenCount">
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div>
+                      <mat-form-field fxFlex = "42">
+                         <textarea matInput placeholder="Address" formControlName="homeAddress" rows="4"></textarea>
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div fxLayout="row " fxLayoutGap="2%">
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Telephone" formControlName="homeTel">
+                      </mat-form-field>
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Mobile" formControlName="mobileNo">
+                      </mat-form-field>
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Email" formControlName="personalEmail">
+                      </mat-form-field>
+                   </div>
+                </div>
+                </form>
+                <form [formGroup]="reviewOccupation" *ngIf="bStep2">
+                <div fxLayout="column">
+                   <br>
+                   <div>
+                      <mat-form-field fxFlex="42">
+                         <input matInput placeholder="Occupation" formControlName="memberOccup">
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div>
+                      <mat-form-field fxFlex="42">
+                         <input matInput placeholder="Subject Area of Occupation" formControlName="memberWorkArea">
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div>
+                      <mat-form-field fxFlex="42">
+                         <input matInput placeholder="Name of the Institute" formControlName="memberEmployer">
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div>
+                      <mat-form-field fxFlex="42">
+                         <textarea matInput placeholder="Address" formControlName="memberWorkAddress" rows="4"></textarea>
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div fxLayout="row " fxLayoutGap="2%">
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Telephone" formControlName="memberWorkTel" >
+                      </mat-form-field>
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Email" formControlName="memberWorkEmail">
+                      </mat-form-field>
+                   </div>
+                   <br>
+                </div>
+                </form>
+                <form [formGroup]="reviewEducation" *ngIf="bStep3">
+                <br>
+                <div fxLayout="column">
+                   <div fxLayout="row " fxLayoutGap="10%">
+                      <h6 fxFlex="15">G.C.E. O/L</h6>
+                      <h6 fxFlex="15">G.C.E. A/L</h6>
+                   </div>
+                   <div fxLayout="row " fxLayoutGap="10%">
+                      <mat-form-field fxFlex = "15">
+                         <input matInput placeholder="Year of First Sitting" formControlName="olYear">
+                      </mat-form-field>
+                      <mat-form-field fxFlex = "15">
+                         <input matInput placeholder="Year of First Sitting" formControlName="alYear">
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div *ngIf="bDegreeDetails">
+                    <mat-card formArrayName="degreeDetails">
+                      <h5>Degree or Doctorate Qualification Details</h5>
+                      <div *ngFor="let rowData of reviewEducation.get('degreeDetails').controls; let i=index;">
+                         <mat-divider *ngIf="reviewEducation.get('degreeDetails').controls.length > 1 && i > 0" ></mat-divider>
+                         <br>
+                         <div [formGroupName]="i">
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                               <mat-form-field fxFlex="60%">
+                                  <input matInput placeholder="Degree Program or Doctorate" formControlName="degreeProgram">
+                               </mat-form-field>
+                               <mat-form-field fxFlex="30%">
+                                  <input matInput placeholder="University Name" formControlName="university">
+                               </mat-form-field>
+                               <mat-form-field fxFlex="10%">
+                                  <input matInput placeholder="Year" formControlName="Degreeyear">
+                               </mat-form-field>
+                            </div>
+                         </div>
+                      </div>
+                      <mat-divider></mat-divider>
+                   </mat-card>
+                   </div>
+                </div>
+                <br>
+                </form>
+                <form [formGroup]="reviewOther" *ngIf="bStep4">
+                <div fxLayout="column">
+                  <br>
+                   <mat-card formArrayName="otherQualif">
+                      <h5>Other Qualification Details</h5>
+                      <div *ngFor="let rowData of reviewOther.get('otherQualif').controls; let i=index;">
+                         <mat-divider *ngIf="reviewOther.get('otherQualif').controls.length > 1 && i > 0" ></mat-divider>
+                         <br>
+                         <div [formGroupName]="i">
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                               <mat-form-field fxFlex="60%">
+                                  <input matInput placeholder="Diploma/ Certificate" formControlName="diplomaName">
+                               </mat-form-field>
+                               <mat-form-field fxFlex="30%">
+                                  <input matInput placeholder="Institute Name" formControlName="institute">
+                               </mat-form-field>
+                               <mat-form-field fxFlex="10%">
+                                  <input matInput placeholder="Year" formControlName="diplomaYear">
+                               </mat-form-field>
+                            </div>
+                         </div>
+                      </div>
+                      <mat-divider></mat-divider>
+                   </mat-card>
+                </div>
+                <br>
+                </form>
+                <form [formGroup]="reviewInterests" *ngIf="bStep5">
+                <br>
+                <div fxLayout="column">
+                   <mat-card formArrayName="interests">
+                      <h5>Other Interests Details</h5>
+                      <div *ngFor="let rowData of reviewInterests.get('interests').controls; let i=index;">
+                         <mat-divider *ngIf="reviewInterests.get('interests').controls.length > 1 && i > 0" ></mat-divider>
+                         <br>
+                         <div [formGroupName]="i">
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                               <mat-form-field fxFlex="30%">
+                                  <input matInput placeholder="Type" formControlName="interestType">
+                               </mat-form-field>
+                               <mat-form-field fxFlex="70%">
+                                  <input matInput placeholder="Description" formControlName="interestDesc">
+                               </mat-form-field>
+                            </div>
+                         </div>
+                      </div>
+                      <mat-divider></mat-divider>
+                   </mat-card>
+                </div>
+                <br>
+                </form>
+                <form [formGroup]="reviewSpouse" *ngIf="bStep6">
+                <br>
+                <div fxLayout="column">
+                   <div>
+                      <mat-form-field fxFlex="42">
+                         <input matInput placeholder="Spouse Name" formControlName="spouseName" disabled>
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div fxLayout="row " fxLayoutGap="2%">
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Date of Birth" formControlName="spouseDOB" disabled>
+                      </mat-form-field>
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="National ID" formControlName="spouseNic" disabled>
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div>
+                      <mat-form-field fxFlex="42">
+                         <input matInput placeholder="Spouse Occupation" formControlName="spouseOccup" disabled>
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div>
+                      <mat-form-field fxFlex="42">
+                         <input matInput placeholder="Subject Area of Occupation" formControlName="spouseWorkArea" disabled>
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div>
+                      <mat-form-field fxFlex="42">
+                         <textarea matInput placeholder="Work Address" formControlName="spouseWorkAddress" rows="4" disabled></textarea>
+                      </mat-form-field>
+                   </div>
+                   <br>
+                   <div fxLayout="row " fxLayoutGap="2%">
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Telephone" formControlName="spouseWorkTel" disabled>
+                      </mat-form-field>
+                      <mat-form-field fxFlex = "20">
+                         <input matInput placeholder="Email" formControlName="spouseEmail" disabled>
+                      </mat-form-field>
+                   </div>
+                </div>
+                <br>
+                </form>
+                <form [formGroup]="reviewChildren" *ngIf="bStep7">
+                <br>
+                <div fxLayout="column">
+                   <mat-card formArrayName="childrenInfo">
+                      <h5>Children Details</h5>
+                      <div *ngFor="let rowData of reviewChildren.get('childrenInfo').controls; let i=index;">
+                         <mat-divider *ngIf="reviewChildren.get('childrenInfo').controls.length > 1 && i > 0" ></mat-divider>
+                         <br>
+                         <div [formGroupName]="i">
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                               <mat-form-field fxFlex="60%">
+                                  <input matInput placeholder="Name" formControlName="childName">
+                               </mat-form-field>
+                               <mat-form-field fxFlex="10%">
+                                  <input matInput placeholder="Date of Birth" formControlName="childDob">
+                               </mat-form-field>
+                               <mat-form-field fxFlex="30%">
+                                  <input matInput placeholder="School" formControlName="childSchool">
+                               </mat-form-field>
+                            </div>
+                         </div>
+                      </div>
+                      <mat-divider></mat-divider>
+                   </mat-card>
+                </div>
+                <br>
+                </form>
+                <form [formGroup]="reviewRef" *ngIf="bStep8">
+                  <br>
+                  <h5>Email Reference</h5>
+                  <br>
+                  <div fxLayout="column">
+                    <div>
+                        <mat-form-field fxFlex="42">
+                          <input matInput placeholder="Name" formControlName="refName">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field fxFlex="42">
+                          <input matInput placeholder="Email" formControlName="refEmail">
+                        </mat-form-field>
+                    </div>
+                  </div>
+                </form>
+                <br> <br>
+                   <div>
+                      <button mat-button (click)="resetFormFields(stepper)">Reset</button>
+                      <button mat-raised-button (click)="onSubmit(stepper)" color="primary">Submit</button>
+                   </div>
+             </mat-step>
+             </mat-horizontal-stepper>
+          </mat-card-content>
+       </mat-card>
+    </div>
+ </div>

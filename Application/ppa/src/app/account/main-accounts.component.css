@@ -1,0 +1,9 @@
+.nav-bar-highlight {
+ font-weight: bold;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 99999;
+}

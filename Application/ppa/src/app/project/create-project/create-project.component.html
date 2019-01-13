@@ -1,0 +1,40 @@
+<mat-card>
+  <mat-card-title>{{action}} Project</mat-card-title>
+  <!-- <mat-spinner *ngIf="loading"></mat-spinner> -->
+  <form #frmProject="ngForm" *ngIf="!loading" (ngSubmit)="submitProject(frmProject)">
+    <mat-form-field>
+      <input matInput type="text" #projectId="ngModel" name="projectId" [readonly]="action == 'Update'" [(ngModel)]="newProject.projectId"
+        placeholder="Project ID">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" #name="ngModel" name="name" [(ngModel)]="newProject.name" placeholder="Project Name">
+      <!-- <mat-error *ngIf="form.get('projectId').invalid">Please enter Project Name.</mat-error> -->
+    </mat-form-field>
+    <mat-form-field *ngIf="action == 'Update'">
+      <mat-select placeholder="Status" #name="ngModel" name="status" [(ngModel)]="newProject.status">
+        <mat-option *ngFor="let status of projectStates" [value]="status">
+          {{status}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" #budget="ngModel" name="budget" [(ngModel)]="newProject.budget" placeholder="Budget">
+      <!-- <mat-error *ngIf="form.get('projectId').invalid">Please enter Project Name.</mat-error> -->
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="date" #startingDate="ngModel" name="startingDate" [ngModel]="newProject.startingDate | date:'yyyy-MM-dd'"
+        placeholder="Starting Date" [value]="newProject.startingDate">
+      <!-- <mat-error *ngIf="form.get('projectId').invalid">Please enter Project Name.</mat-error> -->
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <textarea matInput rows="3" #name="ngModel" name="description" [(ngModel)]="newProject.description" placeholder="Project Description"></textarea>
+      <!-- <mat-error *ngIf="form.get('description').invalid">Please enter Project Description.</mat-error> -->
+    </mat-form-field>
+    <br /><br />
+    <!-- <button disabled mat-raised-button color="accent" *ngIf="isSave">
+      <mat-spinner [diameter]="35" class="save-spinner" *ngIf="isSave"></mat-spinner>
+    </button> -->
+    <button *ngIf="isAdmin" mat-raised-button color="accent" type="submit">{{action}} Project</button>
+  </form>
+</mat-card>

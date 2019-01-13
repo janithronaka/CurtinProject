@@ -1,0 +1,47 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
+    <mat-toolbar color="primary">Admin Dashboard</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['/admin-summary']">Summary</a>
+      <a mat-list-item  [routerLink]="['/member-dir']" routerLinkActive="nav-bar-highlight">Members</a>
+      <a mat-list-item href="#">Committee</a>
+      <a mat-list-item [routerLink]="['/projects']">Projects</a>
+      <a mat-list-item href="#">Donations</a>
+      <mat-accordion>
+        <mat-expansion-panel class="mat-elevation-z0">
+          <mat-expansion-panel-header>
+            <a mat-list-item [routerLink]="['/accounts-dash']" routerLinkActive="nav-bar-highlight">
+              <mat-panel-title>
+                Accounts
+              </mat-panel-title>
+            </a>
+          </mat-expansion-panel-header>
+          <a mat-list-item [routerLink]="['/accounts-all']" routerLinkActive="nav-bar-highlight">View Accounts</a>
+          <a mat-list-item [routerLink]="['/accounts-add']" routerLinkActive="nav-bar-highlight">Add Account</a>
+          <a mat-list-item [routerLink]="['/transactions-all']" routerLinkActive="nav-bar-highlight">View Transactions</a>
+          <a mat-list-item [routerLink]="['/transactions-add']" routerLinkActive="nav-bar-highlight">Add Transaction</a>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <a mat-list-item [routerLink]="['/admin-news']">News</a>
+      <a mat-list-item href="#">Calendar</a>
+      <a mat-list-item [routerLink]="['/main-gallery']" routerLinkActive="nav-bar-highlight">Gallery</a>
+      <a mat-list-item [routerLink]="['/email/compose']">Acknowledgement Mails</a>
+      <a mat-list-item [routerLink]="['/new-membership']">New Membership</a>
+      <a mat-list-item [routerLink]="['/review-memberships']">Review Memberships</a>
+      <a mat-list-item [routerLink]="['/review-letters']">Review Letter Requests</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Sirimavo Past Pupils' Association</span>
+    <!--  <app-login-dashboard id="lgn_dash"></app-login-dashboard> -->
+    </mat-toolbar>
+    <div>
+      <ng-content></ng-content>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

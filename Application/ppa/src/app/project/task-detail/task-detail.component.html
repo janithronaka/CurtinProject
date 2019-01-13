@@ -1,0 +1,29 @@
+<mat-card>
+  <mat-card-title>{{action}} Task</mat-card-title>
+  <!-- <mat-spinner *ngIf="loading"></mat-spinner> -->
+  <form #frmTask="ngForm" *ngIf="!loading" (ngSubmit)="submitTask(frmTask)">
+    <mat-form-field *ngIf="action == 'Update'">
+      <input matInput type="text" #taskId="ngModel" name="taskId"  [(ngModel)]="newTask.taskId"
+        placeholder="Task ID" readonly>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" #name="ngModel" name="name" [(ngModel)]="newTask.name" placeholder="Task Name">
+      <!-- <mat-error *ngIf="form.get('taskId').invalid">Please enter Task Name.</mat-error> -->
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" #budget="ngModel" name="budget" [(ngModel)]="newTask.budget" placeholder="Budget">
+      <!-- <mat-error *ngIf="form.get('taskId').invalid">Please enter Task Name.</mat-error> -->
+    </mat-form-field>
+    <mat-checkbox #completed="ngModel" name="completed" [(ngModel)]="newTask.completed" placeholder="Completed">Completed</mat-checkbox>
+    <br />
+    <mat-form-field>
+      <textarea matInput rows="3" #name="ngModel" name="description" [(ngModel)]="newTask.description" placeholder="Task Description"></textarea>
+      <!-- <mat-error *ngIf="form.get('description').invalid">Please enter Task Description.</mat-error> -->
+    </mat-form-field>
+    <br /><br />
+    <!-- <button disabled mat-raised-button color="accent" *ngIf="isSave">
+        <mat-spinner [diameter]="35" class="save-spinner" *ngIf="isSave"></mat-spinner>
+      </button> -->
+    <button mat-raised-button color="accent" type="submit">{{action}} Task</button>
+  </form>
+</mat-card>

@@ -1,0 +1,53 @@
+<div>
+  <form name="signup_form" (ngSubmit)="onSubmit()"  #signup_form="ngForm">
+  <mat-card fxFlex="55" class="signup_card">
+    <div>
+      <mat-label class="lbl_signup"><b>Signup Form</b></mat-label>
+    </div>
+    <div>
+    <mat-form-field class="mem_id">
+      <input matInput type="text"
+        placeholder="Member ID"
+        name="memberID"
+        #memberID="ngModel"
+        [(ngModel)]="memID"
+        required>
+        <mat-error *ngIf="memberID.invalid && memberID.errors.required">Please pravide member id</mat-error>
+
+    </mat-form-field>
+    </div>
+
+    <div>
+    <mat-form-field class="pass">
+        <input matInput type="password"
+        placeholder="Password"
+        name="password"
+        #password="ngModel"
+        [(ngModel)]="pass"
+        required
+        (click)="checkID()"
+        >
+        <mat-error *ngIf=!len>Atleas enter more than 5 charators</mat-error>
+    </mat-form-field>
+     </div>
+
+     <div>
+        <mat-form-field class="con_pass">
+            <input matInput type="password"
+             placeholder="Confirm Password"
+             name="c_pass"
+             #c_pass="ngModel"
+             [(ngModel)]="con_pass"
+             required
+             (click)="check_pass()">
+             <mat-error *ngIf=con_empty>Please confirm password</mat-error>
+
+
+          </mat-form-field>
+         </div>
+         <div fxLayout="row" fxLayoutGap="4%" fxLayoutAlign="center" >
+         <button mat-raised-button color="primary" type="submit">SignUp</button>
+        </div>
+  </mat-card>
+</form>
+</div>

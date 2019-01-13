@@ -1,0 +1,45 @@
+<div id="content">
+    <mat-card fxFlex="100">
+      <div class="fixed">
+          <mat-card-title>
+            <h2>Review Grade 1 Admissions</h2>
+            </mat-card-title>
+            <mat-card>
+              <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.lt-md="center" fxLayoutGap="3%">
+                  <div fxFlex="70" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign.lt-md="center">
+                      <div fxFlex="50">
+                          <mat-form-field fxFlex="80" fxFlex.lt-sm="100">
+                            <input matInput [(ngModel)]="searchText" placeholder="Name, Membership Id or Occupation">
+                          </mat-form-field>
+                      </div>
+                      <div fxFlex="50">
+                          <mat-form-field fxFlex="100" fxFlex.lt-sm="100">
+                              <mat-label>Sort By:</mat-label>
+                              <mat-select  [(value)]="selected">
+                                  <mat-option value="all">All Admissions</mat-option>
+                                  <mat-option value="pending">Pending Admissions</mat-option>
+                                  <mat-option value="reviewed">Reviewed Admissions</mat-option>
+                                  <mat-option value="rejected">Rejected Admissions</mat-option>
+                               </mat-select>
+                          </mat-form-field>
+                      </div>
+                  </div>
+              </div>
+            </mat-card>
+      </div>
+      <br>
+      <mat-card-content>
+          <div *ngFor="let admission of admissions | admissonfilter : searchText : selected; index as i">
+            <a [routerLink]="['/view-admission/'+admission._id]">
+              <mat-card>
+                  <mat-card-title><h6>Admission {{(i + 1)}} - {{admission.status}}</h6></mat-card-title>
+                  <mat-card-content><label>Applicant: {{admission.applicantName}}</label></mat-card-content>
+              </mat-card>
+            </a>
+            <br *ngIf="admissions.length > 1 && i !== admissions.length -1">
+            <mat-divider *ngIf="admissions.length > 1 && i !== admissions.length -1"></mat-divider>
+            <br *ngIf="admissions.length > 1 && i !== admissions.length -1">
+          </div>
+      </mat-card-content>
+    </mat-card>
+  </div>

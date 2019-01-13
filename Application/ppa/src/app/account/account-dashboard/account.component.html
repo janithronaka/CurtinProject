@@ -1,0 +1,100 @@
+<div class="main-view-div">
+  <mat-grid-list cols="4" rowHeight='400px'>
+    <mat-grid-tile>
+      <mat-card class="tile mat-elevation-z2">
+        <h1>Accounts</h1>
+        <mat-spinner *ngIf="loadingCount"></mat-spinner>
+        <div class="total-acc" *ngIf="!loadingCount">{{totalAccounts}}
+          <h6> Acounts Total </h6>
+        </div>
+        <a [routerLink]="['/accounts-all']"><button class="bottom-comp" mat-raised-button color="accent">View Accounts</button></a>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="tile mat-elevation-z2">
+        <h1>Accounts <br />Actions
+        </h1>
+        <br /><br />
+        <a [routerLink]="['/transactions-add']"><button mat-raised-button color="accent">Add new Transaction</button></a>
+        <br /><br />
+        <a [routerLink]="['/accounts-add']"><button mat-raised-button color="accent">Add new Account</button></a>
+        <br /><br />
+        <a [routerLink]="['/transactions-all']"><button mat-raised-button color="accent">View Transactions</button></a>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="tile mat-elevation-z2">
+        <h1>Recent <br />Transactions
+        </h1>
+        <mat-spinner *ngIf="loadingRecent"></mat-spinner>
+        <div *ngIf="!loadingRecent">
+          <mat-table [dataSource]="transactionData" class="mat-elevation-z8">
+            <ng-container matColumnDef="accId">
+              <mat-header-cell *matHeaderCellDef> Account ID </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.accId}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="amount">
+              <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
+              <mat-cell class="amount-cell" *matCellDef="let element"> {{element.amount}} </mat-cell>
+            </ng-container>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="tile mat-elevation-z2">
+        <h1>Total <br />Income
+        </h1>
+        <div class="item1-div" *ngIf="!loadingIncome">
+          <br /><br />
+          <div class="total-amount-text">For the Month</div>
+          <br /><br /><br /><br />
+          <div class="total-amount-text">For the Year</div>
+        </div>
+        <div class="item2-div" *ngIf="!loadingIncome">
+          <br />
+          <div class="total-amount">{{incomeMonth}}</div>
+          <br /><br />
+          <div class="total-amount">{{incomeYear}}</div>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="3">
+      <mat-card class="tile2 mat-elevation-z2">
+        <div class="item1-div">
+          <h1>Reports</h1>
+          <img mat-card-image src="../../../assets/icons/report.png" alt="Reports">
+        </div>
+        <div class="item2-div">
+          <br /><br />
+          <a [routerLink]="['/account-rep1']"><button mat-raised-button color="accent">Account Report</button></a>
+          <br /><br />
+          <a [routerLink]="['/acc-bal-rep']"><button mat-raised-button color="accent">Account Balance Report</button></a>
+          <br /><br />
+          <a [routerLink]="['/acc-transaction']"><button mat-raised-button color="accent">Transaction Report</button></a>
+          <br /><br />
+          <button mat-raised-button color="accent">Report 4</button>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="tile mat-elevation-z2">
+        <h1>Total <br />Expense
+        </h1>
+        <div class="item1-div" *ngIf="!loadingExpense">
+          <br /><br />
+          <div class="total-amount-text">For the Month</div>
+          <br /><br /><br /><br />
+          <div class="total-amount-text">For the Year</div>
+        </div>
+        <div class="item2-div" *ngIf="!loadingExpense">
+          <br />
+          <div class="total-amount">{{expensMonth}}</div>
+          <br /><br />
+          <div class="total-amount">{{expenseYear}}</div>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

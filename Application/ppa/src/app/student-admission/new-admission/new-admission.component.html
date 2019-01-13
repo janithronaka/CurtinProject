@@ -1,0 +1,651 @@
+<div id="content">
+  <div fxLayout="row">
+     <mat-card fxFlex="100">
+        <mat-card-title>
+           <h2>Apply For Grade 1 Admission</h2>
+           <br>
+           <h4>{{stepHeading}}</h4>
+        </mat-card-title>
+        <mat-card-content>
+            <mat-horizontal-stepper #stepper
+            (selectionChange)="onStepperChange($event, stepper)"
+            [linear]="true">
+            <mat-step [stepControl]="basicDetails">
+              <form [formGroup]="basicDetails">
+                <br>
+                <div fxLayout="column" fxFlex = "60">
+                  <mat-form-field>
+                    <input matInput placeholder="Name of the Applicant" formControlName="applicantName" required>
+                    <mat-error *ngIf="basicDetails.get('applicantName').invalid">
+                       Name is required
+                    </mat-error>
+                  </mat-form-field>
+                   <mat-form-field>
+                    <input matInput [matDatepicker]="dobPicker" placeholder="Date of Birth" formControlName="applicantDob" required>
+                    <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #dobPicker disabled="false"></mat-datepicker>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Contact No" formControlName="contactNo" required>
+                    <mat-error *ngIf="basicDetails.get('contactNo').invalid">
+                      Contact No is required
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Occupation" formControlName="memberOccupation" required>
+                    <mat-error *ngIf="basicDetails.get('memberOccupation').invalid">
+                      Occupation is required
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Name of Spouse" formControlName="spouseName" required>
+                    <mat-error *ngIf="basicDetails.get('spouseName').invalid">
+                      Spouse Name is required
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Spouse Occupation" formControlName="spouseOccupation">
+                  </mat-form-field>
+                  <br>
+                  <mat-form-field>
+                    <mat-select placeholder="Are there any other children who are currently in school (SBV)" formControlName="currentStudents" (selectionChange)="onCurrentStudentsChange($event)">
+                      <mat-option value="yes">Yes</mat-option>
+                      <mat-option value="no">No</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <br>
+                  <label *ngIf="bCurrentStudents">(Please specify the year of admission & grade at present of each student)</label>
+                  <br>
+                  <div *ngIf="bCurrentStudents" formArrayName="currentStudentsArray" fxFlex="60">
+                      <div *ngFor="let data of currentStudentRows.controls; let i=index;">
+                      <br>
+                      <div [formGroupName]="i">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                          <mat-form-field fxFlex="60%">
+                            <input matInput placeholder="Student" formControlName="student">
+                          </mat-form-field>
+                          <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Year of Admission" formControlName="admissionYear">
+                            <mat-error *ngIf="data.get('admissionYear').invalid">
+                              Invalid Year
+                            </mat-error>
+                          </mat-form-field>
+                          <mat-form-field fxFlex="10%">
+                            <input matInput placeholder="Grade" formControlName="grade">
+                          </mat-form-field>
+                          <button mat-mini-fab color="warn"
+                            *ngIf="currentStudentRows.controls.length > 1 && bEnable" (click)="removeCurrentStudentRow(i)">
+                            <mat-icon>delete forever</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <button mat-raised-button (click)="addNewStudentRow()" *ngIf="bEnable">
+                        <mat-icon>add box</mat-icon>
+                        Add New
+                    </button>
+                    <br><br>
+                  </div>
+                <label>Any Other category that you are eligible to apply (Pls. tick √)</label>
+                <br>
+                <mat-checkbox formControlName="coCategory">Chief Occupant (C/O) Category</mat-checkbox>
+                <mat-checkbox formControlName="ogaCategory">OGA Category</mat-checkbox>
+                <mat-checkbox formControlName="sisterCategory">Sister Category</mat-checkbox>
+                <mat-checkbox formControlName="educationServiceCategory">Education Service Category</mat-checkbox>
+                <mat-checkbox formControlName="transferCategory">Transfer Category</mat-checkbox>
+                <mat-checkbox formControlName="foreignCategory">Foreign Category</mat-checkbox>
+                <mat-checkbox formControlName="armedForces">Armed Forces</mat-checkbox>
+                <br>
+                <div>
+                  <button mat-button (click)="resetFormFields(stepper)" *ngIf="bEnable">Reset</button>
+                  <button mat-raised-button (click)="nextStep(stepper)" color="primary">Next</button>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="educationalDetails">
+              <form [formGroup]="educationalDetails">
+                <br>
+                <div fxLayout="column" fxFlex = "60">
+                  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%">
+                      <mat-form-field>
+                          <input matInput placeholder="No. of Years in School" formControlName="schoolYears">
+                          <mat-error *ngIf="educationalDetails.get('schoolYears').invalid">
+                            Invalid Year
+                          </mat-error>
+                        </mat-form-field>
+                        <label class="marks" *ngIf="admissionObject.status === 'Reviewed'">Marks: {{admissionObject.schoolYearsMarks}}</label>
+                  </div>
+                  <br>
+                  <mat-form-field>
+                    <mat-select placeholder="Scholarship Exam" formControlName="scholarship">
+                      <mat-option value="yes">Yes</mat-option>
+                      <mat-option value="no">No</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <br>
+                  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%">
+                      <h6>Educational achievements (During the school period)</h6>
+                      <label class="marks" *ngIf="admissionObject.status === 'Reviewed'">Marks: {{admissionObject.educationalAchievementsMarks}}</label>
+                  </div>
+                  <br>
+                  <label>GCE O/L</label>
+                  <div fxLayout="column" fxLayoutGap="2">
+                    <div fxLayout="row" fxLayoutGap="5">
+                      <mat-form-field fxFlex="40">
+                        <input matInput placeholder="D / A" formControlName="olA">
+                      </mat-form-field>
+                      <mat-form-field fxFlex="40">
+                        <input matInput placeholder="C / B" formControlName="olB">
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="5">
+                      <mat-form-field fxFlex="40">
+                        <input matInput placeholder="C" formControlName="olC">
+                      </mat-form-field>
+                      <mat-form-field fxFlex="40">
+                        <input matInput placeholder="S" formControlName="olS">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+                  <label>GCE A/L  ( Please specify the subject and the result)</label>
+                  <div fxLayout="column" fxLayoutGap="2">
+                    <div fxLayout="row" fxLayoutGap="5">
+                      <mat-form-field fxFlex="40">
+                        <input matInput placeholder="Subject Name" formControlName="alSub1">
+                      </mat-form-field>
+                      <mat-form-field fxFlex="40">
+                        <input matInput placeholder="Result" formControlName="alSub1Result">
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="5">
+                      <mat-form-field fxFlex="40">
+                        <input matInput placeholder="Subject Name" formControlName="alSub2">
+                      </mat-form-field>
+                      <mat-form-field fxFlex="40">
+                        <input matInput placeholder="Result" formControlName="alSub2Result">
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="5">
+                      <mat-form-field fxFlex="40">
+                        <input matInput placeholder="Subject Name" formControlName="alSub3">
+                      </mat-form-field>
+                      <mat-form-field fxFlex="40">
+                        <input matInput placeholder="Result" formControlName="alSub3Result">
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="5">
+                      <mat-form-field fxFlex="40">
+                        <input matInput placeholder="Subject Name" formControlName="alSub4">
+                      </mat-form-field>
+                      <mat-form-field fxFlex="40">
+                        <input matInput placeholder="Result" formControlName="alSub4Result">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+                  <label>Other (Please specify)</label>
+                  <div>
+                    <div formArrayName="otherAchievements">
+                      <div *ngFor="let data of otherAchievementRows.controls; let i=index;">
+                        <br>
+                        <div [formGroupName]="i">
+                          <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%">
+                            <mat-form-field fxFlex="90%">
+                              <input matInput placeholder="Achievement" formControlName="achievement">
+                            </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <input matInput placeholder="Year" formControlName="year">
+                              <mat-error *ngIf="data.get('year').invalid">
+                                Year is invalid
+                              </mat-error>
+                            </mat-form-field>
+                            <button mat-mini-fab color="warn"
+                              *ngIf="otherAchievementRows.controls.length > 1 && bEnable" (click)="removeOtherAchievementRow(i)">
+                              <mat-icon>delete forever</mat-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <br>
+                      <button mat-raised-button (click)="addNewOtherAchievementRow()" *ngIf="bEnable">
+                          <mat-icon>add box</mat-icon>
+                          Add New
+                      </button>
+                    </div>
+                  </div>
+                  <br>
+                  <div>
+                    <button mat-button (click)="previousStep(stepper)">Back</button>
+                    <button mat-button (click)="resetFormFields(stepper)" *ngIf="bEnable">Reset</button>
+                    <button mat-raised-button (click)="nextStep(stepper)" color="primary">Next</button>
+                  </div>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="extraCurricularDetails">
+            <form [formGroup]="extraCurricularDetails">
+              <br>
+              <div fxLayout="column" fxFlex = "60">
+                  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%" fxLayoutAlign="start center" fxLayoutAlign.lt-md="start">
+                      <div>
+                          <h6>Achievements from extra curricular activities</h6>
+                          <h6>(During the school period)</h6>
+                      </div>
+                      <label class="marks" *ngIf="admissionObject.status === 'Reviewed'">Marks: {{admissionObject.extraCurricularMarks}}</label>
+                  </div>
+                <br>
+                <label>Leaderships (Please specify)</label>
+                <div>
+                  <div formArrayName="leaderships">
+                    <div *ngFor="let data of leadershipRows.controls; let i=index;">
+                      <br>
+                      <div [formGroupName]="i">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%">
+                          <mat-form-field fxFlex="30%">
+                            <mat-select placeholder="Leadership Type" formControlName="lType">
+                              <mat-option value="hp">Head Prefect</mat-option>
+                              <mat-option value="dhp">Deputy Head Prefect</mat-option>
+                              <mat-option value="gc">Games Captain</mat-option>
+                              <mat-option value="vgc">Vice Games Captain</mat-option>
+                              <mat-option value="p">Prefect</mat-option>
+                              <mat-option value="hc">House Captain</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-form-field fxFlex="60%">
+                            <input matInput placeholder="Description" formControlName="description">
+                          </mat-form-field>
+                          <mat-form-field fxFlex="10%">
+                            <input matInput placeholder="Year" formControlName="year">
+                            <mat-error *ngIf="data.get('year').invalid">
+                              Year is invalid
+                            </mat-error>
+                          </mat-form-field>
+                          <button mat-mini-fab color="warn"
+                            *ngIf="leadershipRows.controls.length > 1 && bEnable" (click)="removeLeadershipRow(i)">
+                            <mat-icon>delete forever</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div>
+                        <button mat-raised-button (click)="addNewLeadershipRow()" *ngIf="bEnable">
+                            <mat-icon>add box</mat-icon>
+                            Add New
+                        </button>
+                    </div>
+                    <br>
+                    <mat-divider></mat-divider>
+                  </div>
+                </div>
+                <br><br>
+                <br>
+                <label>Other Extra Curricular Activities (Please specify)</label>
+                <div>
+                  <div formArrayName="extraCurricularDetails">
+                    <div *ngFor="let data of extraCurricularRows.controls; let i=index;">
+                      <br>
+                      <div [formGroupName]="i">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%">
+                          <mat-form-field fxFlex="20%">
+                            <mat-select placeholder="Type" formControlName="eType">
+                              <mat-option value="aesthetic">Aesthetic</mat-option>
+                              <mat-option value="sports">Sports</mat-option>
+                              <mat-option value="societies">Societies</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-form-field fxFlex="40%">
+                            <input matInput placeholder="Description" formControlName="description">
+                          </mat-form-field>
+                          <mat-form-field fxFlex="10%">
+                              <mat-select placeholder="Position" formControlName="position">
+                                  <mat-option value="leader">Leader</mat-option>
+                                  <mat-option value="captain">Captain</mat-option>
+                                  <mat-option value="other">Other</mat-option>
+                                </mat-select>
+                          </mat-form-field>
+                          <mat-form-field fxFlex="10%">
+                              <input matInput placeholder="Other" formControlName="other">
+                          </mat-form-field>
+                          <mat-form-field fxFlex="10%">
+                            <input matInput placeholder="Year" formControlName="year">
+                            <mat-error *ngIf="data.get('year').invalid">
+                              Year is invalid
+                            </mat-error>
+                          </mat-form-field>
+                          <button mat-mini-fab color="warn"
+                            *ngIf="extraCurricularRows.controls.length > 1 && bEnable" (click)="removeExtraCurricularRow(i)">
+                            <mat-icon>delete forever</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div>
+                        <button mat-raised-button (click)="addNewExtraCurricularRow()" *ngIf="bEnable">
+                            <mat-icon>add box</mat-icon>
+                            Add New
+                        </button>
+                    </div>
+                    <br>
+                    <mat-divider></mat-divider>
+                  </div>
+                </div>
+                <br><br>
+                <br>
+                <label>Championships (Please specify)</label>
+                <div>
+                  <div formArrayName="championships">
+                    <div *ngFor="let data of championshipRows.controls; let i=index;">
+                      <br>
+                      <div [formGroupName]="i">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%">
+                          <mat-form-field fxFlex="30%">
+                            <mat-select placeholder="Type" formControlName="cType">
+                              <mat-option value="island">All Island Championship</mat-option>
+                              <mat-option value="provincial">Provincial Level Championship</mat-option>
+                              <mat-option value="international">International Level Participation/Championship</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-form-field fxFlex="40%">
+                            <input matInput placeholder="Description" formControlName="description">
+                          </mat-form-field>
+                          <mat-form-field fxFlex="20%">
+                              <input matInput placeholder="Place" formControlName="place">
+                          </mat-form-field>
+                          <mat-form-field fxFlex="10%">
+                            <input matInput placeholder="Year" formControlName="year">
+                            <mat-error *ngIf="data.get('year').invalid">
+                              Year is invalid
+                            </mat-error>
+                          </mat-form-field>
+                          <button mat-mini-fab color="warn"
+                            *ngIf="championshipRows.controls.length > 1 && bEnable" (click)="removeChampionshipRow(i)">
+                            <mat-icon>delete forever</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div>
+                        <button mat-raised-button (click)="addNewChampionshipRow()" *ngIf="bEnable">
+                            <mat-icon>add box</mat-icon>
+                            Add New
+                        </button>
+                    </div>
+                    <br>
+                    <mat-divider></mat-divider>
+                  </div>
+                </div>
+                <br><br>
+                <br>
+                <label>Other (Please specify)</label>
+                <div>
+                  <div formArrayName="others">
+                    <div *ngFor="let data of otherRows.controls; let i=index;">
+                      <br>
+                      <div [formGroupName]="i">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%">
+                          <mat-form-field fxFlex="90%">
+                            <input matInput placeholder="Description" formControlName="description">
+                          </mat-form-field>
+                          <mat-form-field fxFlex="10%">
+                            <input matInput placeholder="Year" formControlName="year">
+                            <mat-error *ngIf="data.get('year').invalid">
+                              Year is invalid
+                            </mat-error>
+                          </mat-form-field>
+                          <button mat-mini-fab color="warn"
+                            *ngIf="otherRows.controls.length > 1 && bEnable" (click)="removeOtherRow(i)">
+                            <mat-icon>delete forever</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div>
+                        <button mat-raised-button (click)="addNewOtherAchievementRow()" *ngIf="bEnable">
+                            <mat-icon>add box</mat-icon>
+                            Add New
+                        </button>
+                    </div>
+                    <br>
+                    <br>
+                  </div>
+                </div>
+                <br>
+                <div>
+                  <button mat-button (click)="previousStep(stepper)">Back</button>
+                  <button mat-button (click)="resetFormFields(stepper)" *ngIf="bEnable">Reset</button>
+                  <button mat-raised-button (click)="nextStep(stepper)" color="primary">Next</button>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="afterSchoolDetails">
+              <form [formGroup]="afterSchoolDetails">
+                <br>
+                <div fxLayout="column" fxFlex = "60">
+                    <br>
+                    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%">
+                        <h6>After the School Period</h6>
+                        <label class="marks" *ngIf="admissionObject.status === 'Reviewed'">Marks: {{admissionObject.afterSchoolMarks}}</label>
+                    </div>
+                  <br>
+                  <br>
+                  <div formArrayName="educationAchievements" fxFlex="60">
+                      <div *ngFor="let data of educationQualificationRows.controls; let i=index;">
+                      <div [formGroupName]="i">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                          <mat-form-field fxFlex="20%">
+                              <mat-select placeholder="Type" formControlName="eType">
+                                <mat-option value="diploma">Diploma</mat-option>
+                                <mat-option value="degree">Degree</mat-option>
+                                <mat-option value="masters">Masters</mat-option>
+                                <mat-option value="phd">PhD</mat-option>
+                                <mat-option value="professional">Professional Qualification</mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                          <mat-form-field fxFlex="70%">
+                            <input matInput placeholder="Qualification" formControlName="qualification">
+                          </mat-form-field>
+                          <mat-form-field fxFlex="10%">
+                            <input matInput placeholder="Year" formControlName="year">
+                            <mat-error *ngIf="data.get('year').invalid">
+                              Invalid Year
+                            </mat-error>
+                          </mat-form-field>
+                          <button mat-mini-fab color="warn"
+                            *ngIf="educationQualificationRows.controls.length > 1 && bEnable" (click)="removeEducationQualificationRow(i)">
+                            <mat-icon>delete forever</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div>
+                        <button mat-raised-button (click)="addNewEducationalAchievementRow()" *ngIf="bEnable">
+                            <mat-icon>add box</mat-icon>
+                            Add New
+                        </button>
+                    </div>
+                    <br>
+                        <mat-divider></mat-divider>
+                    <br><br>
+                  </div>
+                  <mat-form-field>
+                    <input matInput placeholder="OGA Membership No" formControlName="membershipId" readonly>
+                    <mat-error *ngIf="afterSchoolDetails.get('membershipId').invalid">
+                        Membership Id is Required!
+                      </mat-error>
+                  </mat-form-field>
+                   <mat-form-field>
+                    <input matInput [matDatepicker]="datePicker" placeholder="Date" formControlName="membershipDate" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datePicker disabled="false"></mat-datepicker>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="OGA Membership (No. Of Years)" formControlName="membershipYears">
+                  </mat-form-field>
+                  <br>
+                  <h6>Services</h6>
+                  <br>
+                  <mat-form-field>
+                    <mat-select placeholder="Have you offered any service throughout a year?" formControlName="servicesOffered" (selectionChange)="onServicesOfferedChange($event)">
+                        <mat-option value="yes">Yes</mat-option>
+                        <mat-option value="no">No</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  <br>
+                  <label *ngIf="bServicesOffered">Please sepecify the serives</label>
+                  <div *ngIf="bServicesOffered" formArrayName="services" fxFlex="60">
+                      <div *ngFor="let data of serviceRows.controls; let i=index;">
+                      <br>
+                      <div [formGroupName]="i">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                          <mat-form-field fxFlex="90%">
+                              <input matInput placeholder="Description" formControlName="description">
+                          </mat-form-field>
+                          <mat-form-field fxFlex="10%">
+                            <input matInput placeholder="Year" formControlName="year">
+                            <mat-error *ngIf="data.get('year').invalid">
+                              Invalid Year
+                            </mat-error>
+                          </mat-form-field>
+                          <button mat-mini-fab color="warn"
+                            *ngIf="serviceRows.controls.length > 1 && bEnable" (click)="removeServiceRow(i)">
+                            <mat-icon>delete forever</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div>
+                        <button mat-raised-button (click)="addNewServiceRow()" *ngIf="bEnable">
+                            <mat-icon>add box</mat-icon>
+                            Add New
+                        </button>
+                    </div>
+                    <br>
+                    <mat-divider></mat-divider>
+                    <br>
+                    <br>
+                  </div>
+                <label>Service Letters & Special Letters</label>
+                <div formArrayName="letters" fxFlex="60">
+                    <div *ngFor="let data of letterRows.controls; let i=index;">
+                    <div [formGroupName]="i">
+                      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                          <mat-form-field fxFlex="15%">
+                              <mat-select placeholder="Type" formControlName="lType">
+                                <mat-option value="service">Service Letter</mat-option>
+                                <mat-option value="special">Special Letter</mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                        <mat-form-field fxFlex="25%">
+                          <input matInput placeholder="Letter No." formControlName="letterNo">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="60%">
+                          <input matInput placeholder="Description" formControlName="description">
+                          <mat-error *ngIf="data.get('description').invalid">
+                            Description field is Required
+                          </mat-error>
+                        </mat-form-field>
+                        <button mat-mini-fab color="warn"
+                          *ngIf="letterRows.controls.length > 1 && bEnable" (click)="removeLetterRow(i)">
+                          <mat-icon>delete forever</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div>
+                      <button mat-raised-button (click)="addNewLetterRow()" *ngIf="bEnable">
+                          <mat-icon>add box</mat-icon>
+                          Add New
+                      </button>
+                  </div>
+                  <br>
+                  <mat-divider></mat-divider>
+                  <br><br>
+                </div>
+                <h6>Donations</h6>
+                <br>
+                <div formArrayName="donations" fxFlex="60">
+                    <div *ngFor="let data of donationRows.controls; let i=index;">
+                    <div [formGroupName]="i">
+                      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                        <mat-form-field fxFlex="70%">
+                          <input matInput placeholder="Receipt No." formControlName="receiptNo">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="30%">
+                          <input matInput placeholder="Total" formControlName="total">
+                        </mat-form-field>
+                        <button mat-mini-fab color="warn"
+                          *ngIf="donationRows.controls.length > 1 && bEnable" (click)="removeDonationRow(i)">
+                          <mat-icon>delete forever</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div>
+                      <button mat-raised-button (click)="addNewDonationRow()" *ngIf="bEnable">
+                          <mat-icon>add box</mat-icon>
+                          Add New
+                      </button>
+                  </div>
+                  <br>
+                  <mat-divider></mat-divider>
+                  <br><br>
+                </div>
+                <br>
+                <h6>Member of the executive committee / Committee Member</h6>
+                <br>
+                <div formArrayName="committee" fxFlex="60">
+                    <div *ngFor="let data of committeeRows.controls; let i=index;">
+                    <div [formGroupName]="i">
+                      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                        <mat-form-field fxFlex="70%">
+                          <input matInput placeholder="Post" formControlName="post">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="30%">
+                          <input matInput placeholder="Year" formControlName="year">
+                        </mat-form-field>
+                        <button mat-mini-fab color="warn"
+                          *ngIf="committeeRows.controls.length > 1 && bEnable" (click)="removeDonationRow(i)">
+                          <mat-icon>delete forever</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div>
+                      <button mat-raised-button (click)="addNewCommitteeRow()" *ngIf="bEnable">
+                          <mat-icon>add box</mat-icon>
+                          Add New
+                      </button>
+                  </div>
+                  <br><br>
+                </div>
+                <div>
+                  <button mat-button (click)="previousStep(stepper)">Back</button>
+                  <button mat-button (click)="resetFormFields(stepper)" *ngIf="bEnable">Reset</button>
+                  <button mat-raised-button (click)="onSubmit(stepper)" color="primary" *ngIf="bEnable">Submit</button>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+
+
+
+          </mat-horizontal-stepper>
+        </mat-card-content>
+     </mat-card>
+  </div>
+</div>

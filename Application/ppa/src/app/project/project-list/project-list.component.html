@@ -1,0 +1,55 @@
+<mat-card class="table-container">
+  <mat-card-title>Projects</mat-card-title>
+  <mat-form-field>
+    <input matInput [formControl]="projectIdFilter" placeholder="Project ID">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [formControl]="nameFilter" placeholder="Project Name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select [formControl]="statusFilter" placeholder="Status">
+      <mat-option *ngFor=" let status of projectStates" [value]="status">
+        {{status}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <div class="tab-container mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" *ngIf="!loading">
+
+      <ng-container matColumnDef="projectId">
+        <mat-header-cell *matHeaderCellDef> Project ID </mat-header-cell>
+        <mat-cell *matCellDef="let record"> {{record.projectId}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Project Name </mat-header-cell>
+        <mat-cell *matCellDef="let record"> {{record.name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell class="mat-column-status" *matHeaderCellDef> Status </mat-header-cell>
+        <mat-cell class="mat-column-status" *matCellDef="let record"> {{record.status}} </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actionsColumn">
+        <mat-header-cell class="action-cell" *matHeaderCellDef>
+          <span class="spacer"></span>
+          <a *ngIf="isAdmin" mat-list-item [routerLink]="['/projects/create']"><button mat-raised-button color="accent">Create Project</button></a>
+        </mat-header-cell>
+        <mat-cell class="action-cell" *matCellDef="let record">
+          <a *ngIf="isAdmin" mat-list-item [routerLink]="['/projects', record.projectId]"><button mat-button color="primary">View
+            </button></a>
+          <a *ngIf="isAdmin" mat-list-item [routerLink]="['/projects', record.projectId, 'edit']"><button mat-button color="primary">Edit</button></a>
+          <button *ngIf="isAdmin" mat-button color="warn" (click)="onDelete(element)">Delete</button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': selectedRowIndex == row.id}"
+        (click)="highlight(row)"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [hidden]="isLoading"></mat-paginator>
+  </div>
+</mat-card>

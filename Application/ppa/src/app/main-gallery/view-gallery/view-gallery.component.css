@@ -1,0 +1,62 @@
+.photo-card {
+  width: 20rem;
+  height: 20rem;
+  max-height: 300px;
+  margin: 0%;
+  overflow:hidden;
+}
+
+mat-grid-tile {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 0%;
+}
+
+.main-view-div {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.no-image-info {
+  text-align: center;
+}
+
+.scroll-div {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+  height: 63px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: auto;
+}
+
+.img-admin {
+  position: relative;
+  top: 0;
+  right: 0;
+}
+
+.image-view {
+  max-height: 200px;
+  max-width: auto;
+  width: auto;
+  overflow:hidden;
+}
+
+.image-view .image-item {
+  height: 200px;
+  width: 100%;
+	object-fit: cover;
+}
+
+mat-paginator {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+mat-spinner {
+  margin: auto;
+}

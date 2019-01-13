@@ -1,0 +1,311 @@
+<h2 mat-dialog-title>{{data.memberName}} - {{data.nicNo}}</h2>
+<mat-dialog-content>
+  <mat-tab-group color="primary" backgroundColor="primary">
+    <mat-tab label="Personal Details">
+      <br>
+      <div fxLayout="column">
+        <div>
+            <mat-form-field fxFlex = "64">
+                <input matInput placeholder="Name (in NIC)" value="{{data.memberName}}" readonly>
+              </mat-form-field>
+        </div>
+        <div fxLayout="row " fxLayoutGap="2%">
+            <mat-form-field fxFlex = "20">
+                <input matInput placeholder="PreferredName" value="{{data.preferredName}}" readonly>
+             </mat-form-field>
+             <mat-form-field fxFlex = "20">
+                <input matInput placeholder="Member Id" value="{{data.memberId}}" readonly>
+             </mat-form-field>
+           <mat-form-field fxFlex = "20">
+              <input matInput placeholder="National ID No" value="{{data.nicNo}}" readonly>
+           </mat-form-field>
+        </div>
+        <br>
+        <div fxLayout="row " fxLayoutGap="2%">
+           <mat-form-field fxFlex = "20">
+              <input matInput placeholder="Date of Birth" value="{{data.memberDob | date: 'dd/MM/yyyy'}}" readonly>
+           </mat-form-field>
+           <mat-form-field fxFlex = "20">
+              <input matInput placeholder="Nationality" value="{{data.nationality}}" readonly>
+           </mat-form-field>
+           <mat-form-field fxFlex = "20">
+              <input matInput placeholder="Religion" value="{{data.religion}}" readonly>
+           </mat-form-field>
+        </div>
+        <br>
+        <div fxLayout="row " fxLayoutGap="2%">
+           <mat-form-field fxFlex = "20">
+              <input matInput placeholder="Addmission (SBV)" value="{{data.addmisionDate | date: 'dd/MM/yyyy'}}" readonly>
+           </mat-form-field>
+           <mat-form-field fxFlex = "20">
+              <input matInput placeholder="Addmission No" value="{{data.addmissionNo}}" readonly>
+           </mat-form-field>
+        </div>
+        <br>
+        <div fxLayout="row " fxLayoutGap="2%">
+           <mat-form-field fxFlex = "20">
+              <input matInput placeholder="Leaving (SBV)" value="{{data.leavingDate | date: 'dd/MM/yyyy'}}" readonly>
+           </mat-form-field>
+        </div>
+        <br>
+        <div fxLayout="row " fxLayoutGap="2%">
+           <mat-form-field fxFlex = "20">
+              <input matInput placeholder="Registration (OGA)" value="{{data.registrationDate | date: 'dd/MM/yyyy'}}" readonly>
+           </mat-form-field>
+           <mat-form-field fxFlex = "20">
+              <input matInput placeholder="Life Membership Receipt No" value="{{data.receiptNo}}" readonly>
+           </mat-form-field>
+        </div>
+        <br>
+        <div fxLayout="row " fxLayoutGap="2%">
+           <mat-form-field fxFlex = "20">
+              <input matInput placeholder="Civil Status" value="{{data.civilStatus}}" readonly>
+           </mat-form-field>
+           <mat-form-field fxFlex = "20">
+              <input matInput placeholder="No of Children" value="{{data.childrenCount}}" readonly>
+           </mat-form-field>
+        </div>
+        <br>
+        <div>
+           <mat-form-field fxFlex = "42">
+              <textarea matInput placeholder="Address" value="{{data.homeAddress}}" rows="4" readonly></textarea>
+           </mat-form-field>
+        </div>
+        <br>
+        <div fxLayout="row " fxLayoutGap="2%">
+           <mat-form-field fxFlex = "20">
+              <input matInput placeholder="Telephone" value="{{data.homeTel}}" readonly>
+           </mat-form-field>
+           <mat-form-field fxFlex = "20">
+              <input matInput placeholder="Mobile" value="{{data.mobileNo}}" readonly>
+           </mat-form-field>
+           <mat-form-field fxFlex = "20">
+              <input matInput placeholder="Email" value="{{data.personalEmail}}" readonly>
+           </mat-form-field>
+        </div>
+     </div>
+    </mat-tab>
+    <mat-tab label="Occupation Details">
+        <br>
+        <div fxLayout="column">
+            <div>
+               <mat-form-field fxFlex="42">
+                  <input matInput placeholder="Occupation" value="{{data.memberOccup}}" readonly>
+               </mat-form-field>
+            </div>
+            <br>
+            <div>
+               <mat-form-field fxFlex="42">
+                  <input matInput placeholder="Subject Area of Occupation" value="{{data.memberWorkArea}}" readonly>
+               </mat-form-field>
+            </div>
+            <br>
+            <div>
+               <mat-form-field fxFlex="42">
+                  <input matInput placeholder="Name of the Institute" value="{{data.memberEmployer}}" readonly>
+               </mat-form-field>
+            </div>
+            <br>
+            <div>
+               <mat-form-field fxFlex="42">
+                  <textarea matInput placeholder="Address" value="{{data.memberWorkAddress}}" rows="4" readonly></textarea>
+               </mat-form-field>
+            </div>
+            <br>
+            <div fxLayout="row " fxLayoutGap="2%">
+               <mat-form-field fxFlex = "20">
+                  <input matInput placeholder="Telephone" value="{{data.memberWorkTel}}" readonly>
+               </mat-form-field>
+               <mat-form-field fxFlex = "20">
+                  <input matInput placeholder="Email" value="{{data.memberWorkEmail}}" readonly>
+               </mat-form-field>
+            </div>
+         </div>
+    </mat-tab>
+    <mat-tab label="Educational Qualifications">
+        <br>
+        <div fxLayout="column">
+           <div fxLayout="row " fxLayoutGap="10%">
+              <h6 fxFlex="15">G.C.E. O/L</h6>
+              <h6 fxFlex="15">G.C.E. A/L</h6>
+           </div>
+           <div fxLayout="row " fxLayoutGap="10%">
+              <mat-form-field fxFlex = "15">
+                 <input matInput placeholder="Year of First Sitting" value="{{data.olYear}}" readonly>
+              </mat-form-field>
+              <mat-form-field fxFlex = "15">
+                 <input matInput placeholder="Year of First Sitting" value="{{data.alYear}}" readonly>
+              </mat-form-field>
+           </div>
+           <br>
+           <div *ngIf="!bDegreeInfo">
+              <mat-card>
+                <h5>Degree or Doctorate Qualification Details</h5>
+                <div *ngFor="let degree of degreeDetails; let i=index;">
+                   <mat-divider *ngIf="degreeDetails.length > 1 && i > 0" ></mat-divider>
+                   <br>
+                      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                         <mat-form-field fxFlex="60%">
+                            <input matInput placeholder="Degree Program or Doctorate" value="{{degree.degreeProgram}}" readonly>
+                         </mat-form-field>
+                         <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="University Name" value="{{degree.university}}" readonly>
+                         </mat-form-field>
+                         <mat-form-field fxFlex="10%">
+                            <input matInput placeholder="Year" value="{{degree.degreeYear}}" readonly>
+                         </mat-form-field>
+                      </div>
+                </div>
+                <mat-divider></mat-divider>
+             </mat-card>
+             </div>
+        </div>
+        <br>
+    </mat-tab>
+    <mat-tab label="Other Qualifications" *ngIf="!bOtherInfo">
+        <div fxLayout="column">
+            <br>
+             <mat-card>
+                <h5>Other Qualification Details</h5>
+                <div *ngFor="let other of otherDetails; let i=index;">
+                   <mat-divider *ngIf="otherDetails.length > 1 && i > 0" ></mat-divider>
+                   <br>
+                      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                         <mat-form-field fxFlex="60%">
+                            <input matInput placeholder="Diploma/ Certificate" value="{{other.diplomaName}}" readonly>
+                         </mat-form-field>
+                         <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Institute Name" value="{{other.institute}}" readonly>
+                         </mat-form-field>
+                         <mat-form-field fxFlex="10%">
+                            <input matInput placeholder="Year" value="{{other.diplomaYear}}" readonly>
+                         </mat-form-field>
+                      </div>
+                </div>
+                <mat-divider></mat-divider>
+             </mat-card>
+          </div>
+          <br>
+    </mat-tab>
+    <mat-tab label="Other Abilities & Interests" *ngIf="!bInterestInfo">
+        <br>
+        <div fxLayout="column">
+           <mat-card>
+              <h5>Other Interests Details</h5>
+              <div *ngFor="let interest of interestDetails; let i=index;">
+                 <mat-divider *ngIf="interestDetails.length > 1 && i > 0" ></mat-divider>
+                 <br>
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                       <mat-form-field fxFlex="30%">
+                          <input matInput placeholder="Type" value="{{interest.interestType}}" readonly>
+                       </mat-form-field>
+                       <mat-form-field fxFlex="70%">
+                          <input matInput placeholder="Description" value="{{interest.interestDesc}}" readonly>
+                       </mat-form-field>
+                    </div>
+              </div>
+              <mat-divider></mat-divider>
+           </mat-card>
+        </div>
+        <br>
+    </mat-tab>
+    <mat-tab label="Spouse Details" *ngIf="!bSpouseInfo">
+        <br>
+        <div fxLayout="column">
+           <div>
+              <mat-form-field fxFlex="42">
+                 <input matInput placeholder="Spouse Name" value="{{data.spouseName}}" readonly>
+              </mat-form-field>
+           </div>
+           <br>
+           <div fxLayout="row " fxLayoutGap="2%">
+              <mat-form-field fxFlex = "20">
+                 <input matInput placeholder="Date of Birth" value="{{data.spouseDOB | date: 'dd/MM/yyyy'}}" readonly>
+              </mat-form-field>
+              <mat-form-field fxFlex = "20">
+                 <input matInput placeholder="National ID" value="{{data.spouseNic}}" readonly>
+              </mat-form-field>
+           </div>
+           <br>
+           <div>
+              <mat-form-field fxFlex="42">
+                 <input matInput placeholder="Spouse Occupation" value="{{data.spouseOccup}}" readonly>
+              </mat-form-field>
+           </div>
+           <br>
+           <div>
+              <mat-form-field fxFlex="42">
+                 <input matInput placeholder="Subject Area of Occupation" value="{{data.spouseWorkArea}}" readonly>
+              </mat-form-field>
+           </div>
+           <br>
+           <div>
+              <mat-form-field fxFlex="42">
+                 <textarea matInput placeholder="Work Address" value="{{data.spouseWorkAddress}}" rows="4" readonly></textarea>
+              </mat-form-field>
+           </div>
+           <br>
+           <div fxLayout="row " fxLayoutGap="2%">
+              <mat-form-field fxFlex = "20">
+                 <input matInput placeholder="Telephone" value="{{data.spouseWorkTel}}" readonly>
+              </mat-form-field>
+              <mat-form-field fxFlex = "20">
+                 <input matInput placeholder="Email" value="{{data.spouseEmail}}" readonly>
+              </mat-form-field>
+           </div>
+        </div>
+        <br>
+    </mat-tab>
+    <mat-tab label="Children Details" *ngIf="!bChildrenInfo">
+        <br>
+        <div fxLayout="column">
+           <mat-card>
+              <h5>Children Details</h5>
+              <div *ngFor="let child of childrenDetails; let i=index;">
+                 <mat-divider *ngIf="childrenDetails.length > 1 && i > 0" ></mat-divider>
+                 <br>
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                       <mat-form-field fxFlex="60%">
+                          <input matInput placeholder="Name" value="{{child.childName}}" readonly>
+                       </mat-form-field>
+                       <mat-form-field fxFlex="10%">
+                          <input matInput placeholder="Date of Birth" value="{{child.childDob | date: 'dd/MM/yyyy'}}" readonly>
+                       </mat-form-field>
+                       <mat-form-field fxFlex="30%">
+                          <input matInput placeholder="School" value="{{child.childSchool}}" readonly>
+                       </mat-form-field>
+                    </div>
+              </div>
+              <mat-divider></mat-divider>
+           </mat-card>
+        </div>
+        <br>
+    </mat-tab>
+    <mat-tab label="Reference Details" *ngIf="!bRefInfo">
+        <br>
+        <h5>Email Reference</h5>
+        <br>
+        <div fxLayout="column">
+          <div>
+              <mat-form-field fxFlex="42">
+                <input matInput placeholder="Name" value="{{data.refName}}" readonly>
+              </mat-form-field>
+          </div>
+          <div>
+              <mat-form-field fxFlex="42">
+                <input matInput placeholder="Email" value="{{data.refEmail}}" readonly>
+              </mat-form-field>
+          </div>
+        </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
+<br>
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="primary">Cancel</button>
+</mat-dialog-actions>
+
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

@@ -1,0 +1,93 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+  box-shadow: 3px 0 6px rgba(0,0,0,.24);
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+#lgn_dash {
+
+  margin:0px auto;
+  margin-left: 65%;
+  background-color: teal;
+    color: white;
+
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    float: right;
+
+}
+
+.nav-bar-highlight {
+  font-weight: bold;
+ }
+
+ mat-expansion-panel-header {
+   width: 100%;
+   left: 0px;
+   padding-left: 0px;
+ }
+
+.mat-nav-list .mat-list-item {
+  width: 100%;
+}
+
+.prin_message {
+  height: 60%;
+  width: 49%;
+  opacity: 0.9;
+  float: left;
+}
+
+.pre_message {
+  height: 60%;
+  width: 49%;
+  opacity: 0.9;
+  float: right;
+
+}
+
+.lgn_span {
+  position: absolute;
+
+  font-size: 17px;
+  color: white;
+  margin-top: -12px;
+ }
+
+ .lgn_lable {
+  position: absolute;
+
+  font-size: 17px;
+  margin-top: -20px;
+  color: white;
+
+ }
+.lgn_lable:hover {
+  color: teal;
+  cursor: pointer;
+}
+
+.signup {
+  cursor: pointer;
+  padding: 1px auto;
+  margin: 5px;
+
+}
+
+.lgn_clss {
+  margin-left: 70%;
+  position: fixed;
+}
+
+
+

@@ -1,0 +1,36 @@
+
+
+  <div>
+      <h1 id="h1_custom"><img mat-card-image  src="../../assets/icons/shoutu.jpg" alt="System Logs" style="text-align: left; margin-left: 90px; height: 40%; width: 30%; margin-top: 10%; position: fixed;"></h1>
+  </div>
+
+  <form (ngSubmit)="sendEmail(resetForm)" name="resetForm" #resetForm="ngForm" >
+
+    <mat-card class="reset_card">
+
+      <h2>Forgot your password?</h2>
+      <p>Enter your email address to reset your password.(You may need to check your spam folder just in case). We will send reset code to your email address.</p>
+      <div>
+      <mat-form-field class="member_id">
+        <input matInput
+         #memID="ngModel"
+         [(ngModel)]="member_id"
+          required
+           placeholder="Member ID"
+           type="text"
+           name="memberID">
+      </mat-form-field>
+    </div>
+
+      <mat-form-field class="txt_email">
+          <input matInput ngModel placeholder="Enter Your Email Address" name="member_email" [formControl]="email">
+          <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
+      </mat-form-field>
+
+      <div>
+          <button mat-raised-button color="primary" id="btn_submit"  type="submit">Submit</button>
+      </div>
+
+  </mat-card>
+</form>
+

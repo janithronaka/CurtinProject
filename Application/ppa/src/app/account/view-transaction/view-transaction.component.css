@@ -1,0 +1,60 @@
+.table-container {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.emp {
+  height: 10%;
+}
+
+.highlight{
+  background: rgb(255, 222, 112);
+}
+
+mat-table {
+  height: auto;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+.tab-container {
+  /*height: 71vh;
+  overflow: auto;*/
+  box-shadow: -5px -1px 8px -1px rgba(0, 0, 0, 0.14), 5px -1px 8px -1px rgba(0, 0, 0, 0.14);
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-header-cell {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+mat-form-field {
+  width: auto;
+}
+
+.add-gap {
+  padding-left: 16px;
+}
+
+.mat-column-donations {
+  flex: 0 0 100px !important;
+  white-space: unset !important;
+}
+
+.amount-cell {
+  display:flex !important;
+  justify-content:flex-end!important;
+  padding-right: 40px;
+}
+
+.action-cell {
+  display:flex !important;
+  justify-content:flex-end!important;
+}

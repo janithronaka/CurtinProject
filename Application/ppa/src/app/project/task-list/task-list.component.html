@@ -1,0 +1,60 @@
+<mat-card class="table-container">
+  <mat-card-title>Tasks</mat-card-title>
+  <!-- <mat-form-field>
+    <input matInput [formControl]="taskIdFilter" placeholder="Task ID">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [formControl]="nameFilter" placeholder="Task Name">
+  </mat-form-field>
+  <mat-checkbox [formControl]="completedFilter">Completed</mat-checkbox> -->
+  <div class="tab-container mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" *ngIf="!loading">
+      <ng-container matColumnDef="taskId">
+        <mat-header-cell *matHeaderCellDef> Task ID </mat-header-cell>
+        <mat-cell *matCellDef="let record"> {{record.taskId}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Task Name </mat-header-cell>
+        <mat-cell *matCellDef="let record"> {{record.name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Task Description </mat-header-cell>
+        <mat-cell *matCellDef="let record"> {{record.description}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="completed">
+        <mat-header-cell *matHeaderCellDef> Completed </mat-header-cell>
+        <mat-cell *matCellDef="let record">
+          <mat-checkbox [checked]="record.completed" [disabled]="true"></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="budget">
+        <mat-header-cell class="mat-column-status" *matHeaderCellDef> Budget </mat-header-cell>
+        <mat-cell class="mat-column-status" *matCellDef="let record"> {{record.budget}} </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actionsColumn">
+        <mat-header-cell class="action-cell" *matHeaderCellDef>
+          <span class="spacer"></span>
+          <a mat-list-item [routerLink]="['/projects', projectId, 'tasks', 'create']"><button mat-raised-button color="accent">Create
+              Task</button></a>
+        </mat-header-cell>
+        <mat-cell class="action-cell" *matCellDef="let record">
+          <a mat-list-item [routerLink]="['/projects', projectId, record.taskId, 'edit']"><button mat-button color="primary">Edit</button></a>
+          <button mat-button color="warn" (click)="deleteTask(record)">Delete</button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': selectedRowIndex == row.id}"
+        (click)="highlight(row)"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [hidden]="isLoading"></mat-paginator>
+  </div>
+  <!-- <mat-paginator class="mat-elevation-z8" [length]="totalAccounts" [pageSizeOptions]="pageSizeOption" [pageSize]="accountsPerPage"
+      (page)="(onPageChanged($event))" *ngIf="accountData.length > 0"></mat-paginator> -->
+</mat-card>

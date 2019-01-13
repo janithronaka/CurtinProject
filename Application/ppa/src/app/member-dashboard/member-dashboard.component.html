@@ -1,0 +1,116 @@
+<div>
+  <div id="content">
+     <div fxLayout="column" fxLayoutWrap fxLayoutGap="2%" fxLayoutAlign="start">
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="2%" fxLayoutAlign="start">
+            <mat-card fxFlex="38%">
+                <mat-card-title fxLayout ="row" fxLayout.lt-md="column">
+                   <h4>
+                      Member Profile
+                      <mat-icon matBadge="15" matBadgeColor="warn">account_circle</mat-icon>
+                   </h4>
+                </mat-card-title>
+                <mat-card-content>
+                   <h1 id="h1_custom"><i class="material-icons" style="font-size: 150%">account_box</i></h1>
+                   <button mat-raised-button color="primary" (click)="gotoMember()">Go to Member Profile</button>
+                </mat-card-content>
+             </mat-card>
+           <mat-card fxFlex="60%">
+              <mat-card-title fxLayout.gt-sm="row" fxLayout.lt-md="column">
+                 <h4>
+                    Letter Request
+                    <mat-icon matBadge="15" matBadgeColor="warn">mail_outline</mat-icon>
+                 </h4>
+              </mat-card-title>
+              <mat-card-content>
+                 <div fxLayout="row" fxLayoutGap="10%">
+                    <div>
+                       <h5>Total Requests</h5>
+                       <h1 id="h1_custom">{{totalCount}} </h1>
+                       <button mat-raised-button color="primary" (click)="letterRequets()">Go to Letter Requests</button>
+                    </div>
+                    <div>
+                       <mat-divider vertical="true"></mat-divider>
+                    </div>
+                    <div fxLayout="column" fxLayoutGap="5%" flex-grow>
+                       <div>
+                          <h5>Pending Request Count</h5>
+                          <h2 id="h2_custom">{{pendingCount}}</h2>
+                       </div>
+                       <div>
+                          <h5>Accepted Request Count</h5>
+                          <h2 id="h2_custom">{{acceptedCount}}</h2>
+                       </div>
+                       <div>
+                        <h5>Rejected Request Count</h5>
+                        <h2 id="h2_custom">{{rejectedCount}}</h2>
+                     </div>
+                    </div>
+                 </div>
+              </mat-card-content>
+           </mat-card>
+        </div>
+
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="2%" fxLayoutAlign="start">
+
+            <mat-card fxFlex="60%">
+                <mat-card-title fxLayout.gt-sm="row" fxLayout.lt-md="column">
+                   <h4>
+                     School Projects
+                      <mat-icon matBadge="15" matBadgeColor="warn">perm_media</mat-icon>
+                   </h4>
+                </mat-card-title>
+                <mat-card-content>
+                   <div fxLayout="row" fxLayoutGap="10%">
+                      <div>
+                         <h5>Total Projects</h5>
+                         <h1 id="h1_custom">{{totalProjects}} </h1>
+
+                      </div>
+                      <div>
+                         <mat-divider vertical="true"></mat-divider>
+                      </div>
+                      <div fxLayout="row" fxLayoutGap="5%" flex-grow>
+                         <div>
+                            <h5>Upcoming Projects Count</h5>
+                            <h2 id="h2_custom">{{upcomingProject}}</h2>
+                         </div>
+                         <div>
+                            <h5>Ongoing Projects Count</h5>
+                            <h2 id="h2_custom">{{ongoingProject}}</h2>
+                         </div>
+                         <div>
+                            <h5>Completed Projects Count</h5>
+                            <h2 id="h2_custom">{{completedProject}}</h2>
+                         </div>
+                         <div>
+                          <h5>Cancelled Project Count</h5>
+                          <h2 id="h2_custom">{{cancelProject}}</h2>
+                       </div>
+                      </div>
+                   </div>
+                </mat-card-content>
+             </mat-card>
+
+             <mat-card fxFlex="40%">
+                <mat-card-title fxLayout.gt-sm="row" fxLayout.lt-md="column">
+                    <h4>
+                        This Year Committee Members
+                       <mat-icon matBadge="15" matBadgeColor="warn">group</mat-icon>
+                    </h4>
+                 </mat-card-title>
+                 <mat-card-content>
+
+                 <mat-label><h5><b>President</b></h5></mat-label>
+                 <mat-label *ngFor="let arr of yearPresident" class="lbl_mem"><b><h5>{{arr}}</h5></b></mat-label><br>
+                 <mat-label><h5><b>Secretary</b></h5></mat-label>
+                 <mat-label *ngFor="let arr of yearsecretary" class="lbl_mem"><b><h5>{{arr}}</h5></b></mat-label><br>
+                 <mat-label><h5><b>Accountent</b></h5></mat-label>
+                 <mat-label *ngFor="let arr of yearaccountent" class="lbl_mem"><b><h5>{{arr}}</h5></b></mat-label><br>
+                 <mat-label><h5><b>Admin</b></h5></mat-label>
+                 <mat-label *ngFor="let arr of yearadmin" class="lbl_mem"><b><h5>{{arr}}</h5></b></mat-label>
+                 </mat-card-content>
+
+              </mat-card>
+
+        </div>
+</div>

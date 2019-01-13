@@ -1,0 +1,39 @@
+.fromD {
+  float: left;
+}
+
+.toD {
+  float: right;
+}
+
+#tblMember {
+  width: 56%;
+  float: right;
+}
+
+.memID {
+  width: 100%;
+}
+
+.select_position {
+
+  width: 100%;
+}
+
+.memName {
+  width: 100%;
+}
+
+.memphone {
+
+  width: 100%;
+}
+
+.lbl_mem {
+  color: darkgreen;
+}
+
+.com_lbl {
+  color: blueviolet;
+}
+

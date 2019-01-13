@@ -1,0 +1,91 @@
+<mat-card class="table-container">
+  <mat-card-title>{{formTitle}}</mat-card-title>
+  <mat-form-field>
+    <mat-select [(ngModel)]="filterOption" placeholder="Filter by">
+      <mat-option value="all">All</mat-option>
+      <mat-option value="account">Account ID</mat-option>
+      <mat-option value="amount">Amount</mat-option>
+      <mat-option value="desc">Description</mat-option>
+      <mat-option value="entered">Entered By</mat-option>
+      <mat-option value="donation">Donation</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="filterString" placeholder="Filter">
+  </mat-form-field>
+  <mat-slide-toggle class="add-gap" [checked]="dtp1.enabled" (change)="dtp1.enabled ? disableDate() : enableDate()">
+    Date Range
+  </mat-slide-toggle>
+  <mat-form-field class="add-gap">
+    <input matInput [matDatepicker]="picker1" placeholder="Choose from date" [formControl]="dtp1">
+    <mat-error *ngIf="dtp1.invalid">Please enter valid date.</mat-error>
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker2" placeholder="Choose until date" [formControl]="dtp2">
+    <mat-error *ngIf="dtp2.invalid">Please enter valid date.</mat-error>
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+  <button mat-icon-button (click)="onSearch()">
+    <mat-icon>search</mat-icon>
+  </button>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <div class="tab-container mat-elevation-z8">
+    <mat-table [dataSource]="transactionData" *ngIf="!loading">
+      <!-- Account ID Column -->
+      <ng-container matColumnDef="accId">
+        <mat-header-cell *matHeaderCellDef> Account ID </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.accId}} </mat-cell>
+      </ng-container>
+      <!-- Amount Column -->
+      <ng-container matColumnDef="amount">
+        <mat-header-cell class="amount-cell" *matHeaderCellDef> Amount </mat-header-cell>
+        <mat-cell class="amount-cell" *matCellDef="let element"> {{element.amount}} </mat-cell>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="desc">
+        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.desc}} </mat-cell>
+      </ng-container>
+
+      <!-- Entered Column -->
+      <ng-container matColumnDef="entered">
+        <mat-header-cell *matHeaderCellDef> Entered by </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.entered}} </mat-cell>
+      </ng-container>
+
+      <!-- Date Column -->
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
+      </ng-container>
+
+      <!-- Donation Column -->
+      <ng-container matColumnDef="donation">
+        <mat-header-cell  class= "mat-column-donations" *matHeaderCellDef> Donation </mat-header-cell>
+        <mat-cell class= "mat-column-donations" *matCellDef="let element"> {{element.donation}} </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actionsColumn">
+        <mat-header-cell class="action-cell" *matHeaderCellDef>
+          <span class="spacer"></span>
+          <a mat-list-item [routerLink]="['/transactions-add']"><button mat-raised-button color="accent">Create new</button></a>
+        </mat-header-cell>
+        <mat-cell class="action-cell" *matCellDef="let element">
+          <a mat-list-item [routerLink]="['/transactions-edit', element.id]"><button mat-button color="primary">Edit</button></a>
+          <button mat-button color="warn" (click)="onDelete(element)">Delete</button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': selectedRowIndex == row.id}"
+        (click)="highlight(row)"></mat-row>
+    </mat-table>
+  </div>
+  <mat-paginator class="mat-elevation-z8" [length]="totalTransactions" [pageSizeOptions]="pageSizeOption" [pageSize]="transactionsPerPage"
+    (page)="(onPageChanged($event))" *ngIf="transactionData.length > 0"></mat-paginator>
+</mat-card>

@@ -1,0 +1,45 @@
+<mat-card>
+  <mat-card-title>Account Transaction Report</mat-card-title>
+  <mat-form-field>
+    <mat-select [(ngModel)]="filterOption" placeholder="Filter by">
+      <mat-option value="all">All</mat-option>
+      <mat-option value="account">Account ID</mat-option>
+      <mat-option value="amount">Amount</mat-option>
+      <mat-option value="desc">Description</mat-option>
+      <mat-option value="entered">Entered By</mat-option>
+      <mat-option value="donation">Donation</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="filterString" placeholder="Filter">
+  </mat-form-field>
+  <mat-form-field class="add-gap">
+    <input matInput [matDatepicker]="picker1" placeholder="Choose from date" [formControl]="dtp1">
+    <mat-error *ngIf="dtp1.invalid">Please enter valid date.</mat-error>
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker2" placeholder="Choose until date" [formControl]="dtp2">
+    <mat-error *ngIf="dtp2.invalid">Please enter valid date.</mat-error>
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select [(ngModel)]="fontSize" placeholder="Font Size" [(value)]="selectedSize">
+      <mat-option value="10">10</mat-option>
+      <mat-option value="12">12</mat-option>
+      <mat-option value="14">14</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select [(ngModel)]="orientation" placeholder="Orientation" [(value)]="selectedOri">
+      <mat-option value="p">Portrait</mat-option>
+      <mat-option value="l">Landscape</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div>
+    <button disabled mat-raised-button color="accent" *ngIf="loading" ><mat-spinner [diameter]="35" class = "save-spinner" *ngIf="loading"></mat-spinner></button>
+    <button mat-raised-button color="accent" *ngIf="!loading" (click)="downloadPDF()" type="button">Generate and Download</button>
+  </div>
+</mat-card>

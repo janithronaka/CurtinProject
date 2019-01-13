@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-card-title>{{formTitle}}</mat-card-title>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <form [formGroup]="form" #formDirective="ngForm" *ngIf="!loading" (submit)="onSaveTransaction(formDirective)">
+    <mat-form-field (onfocus)="onAccountFocused()">
+      <input matInput type="text" formControlName="accId" placeholder="Account ID" [matAutocomplete]="auto" (focus)="onAccountFocused()">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-spinner *ngIf="!accountsFetched"></mat-spinner>
+        <mat-option  *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="form.get('accId').invalid">Please enter an Account ID.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" formControlName="amount" placeholder="Amount">
+      <mat-error *ngIf="form.get('amount').invalid">Please enter an valid Amount.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput rows="3" formControlName="desc" placeholder="Description"></textarea>
+      <mat-error *ngIf="form.get('desc').invalid">Please enter a account description.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Donation" formControlName="donation" [(value)]="selected">
+        <mat-option *ngFor="let donation of donations" [value]="donation.value">
+          {{donation.viewValue}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('donation').invalid">Please select a type.</mat-error>
+    </mat-form-field>
+    <br /><br />
+    <button disabled mat-raised-button color="accent" *ngIf="isSave" ><mat-spinner [diameter]="35" class = "save-spinner" *ngIf="isSave"></mat-spinner></button>
+    <button mat-raised-button color="accent" *ngIf="!isSave" type="submit">Save Transaction</button>
+  </form>
+</mat-card>

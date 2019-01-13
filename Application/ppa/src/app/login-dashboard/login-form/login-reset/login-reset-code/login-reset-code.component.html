@@ -1,0 +1,53 @@
+
+<body>
+    <div>
+        <h1 id="h1_custom"><img mat-card-image  src="../../assets/icons/shoutu.jpg" alt="System Logs" style="text-align: left; margin-left: 90px; height: 40%; width: 30%; margin-top: 10%; position: fixed;"></h1>
+    </div>
+
+    <form (ngSubmit)="frmSubmit(resetForm)" name="resetForm" #resetForm="ngForm">
+      <div class="container">
+      <mat-card class="reset_card">
+
+        <h2>Forgot your password?</h2>
+        <p>Please enter the code in code field that we sent through via Email. Please Enter and confirm your new Password entering in boath Password Fields.</p>
+
+
+
+        <mat-form-field class="txt_code">
+            <input matInput
+            #Code="ngModel"
+            [(ngModel)]="code"
+            required
+            placeholder="Enter Confirmation Code"
+            name="code">
+        </mat-form-field><br>
+
+        <mat-form-field class="txt_pass">
+          <input matInput
+          #New_pass="ngModel"
+           [(ngModel)]="new_pass"
+           required
+           placeholder="Enter new Password"
+           name="new_pass"
+           type="password">
+        </mat-form-field><br>
+        <mat-form-field class="txt_conpass">
+            <input matInput
+            #Con_pass="ngModel"
+            [(ngModel)]="con_pass"
+            required
+            placeholder="Confirm new Password"
+            name="con_pass"
+            type="password">
+          </mat-form-field>
+
+        <div>
+            <button mat-raised-button color="primary" id="btn_submit" type="submit">Submit</button>
+        </div>
+
+    </mat-card>
+  </div>
+  </form>
+
+  </body>
+

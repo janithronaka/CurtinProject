@@ -1,0 +1,92 @@
+<div>
+    <div id="content">
+       <div fxLayout="column" fxLayoutWrap fxLayoutGap="2%" fxLayoutAlign="start">
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="2%" fxLayoutAlign="start">
+             <mat-card fxFlex="60%">
+                <mat-card-title fxLayout.gt-sm="row" fxLayout.lt-md="column">
+                   <h4>
+                      Members
+                      <mat-icon matBadge="15" matBadgeColor="warn">card_membership</mat-icon>
+                   </h4>
+                </mat-card-title>
+                <mat-card-content>
+                   <div fxLayout="row" fxLayoutGap="10%">
+                      <div>
+                         <h5>New Membership Requests</h5>
+                         <h1 id="h1_custom">{{pendingMembershipsCount}} </h1>
+                         <button mat-raised-button color="primary" (click)="navigateToMembershipRequests()">Go to Membership Requests</button>
+                      </div>
+                      <div>
+                         <mat-divider vertical="true"></mat-divider>
+                      </div>
+                      <div fxLayout="column" fxLayoutGap="20%" flex-grow>
+                         <div>
+                            <h5>Total Members</h5>
+                            <h2 id="h2_custom">{{totalMemberCount}}</h2>
+                         </div>
+                         <div>
+                            <h5>Total ExCo Members</h5>
+                            <h2 id="h2_custom">{{exCoMemberCount}}</h2>
+                         </div>
+                      </div>
+                   </div>
+                </mat-card-content>
+             </mat-card>
+             <mat-card fxFlex="40%">
+                <mat-card-title fxLayout = "row" fxLayout.lt-md="column">
+                   <h4>
+                      Official Letter Requests
+                      <mat-icon matBadge="15" matBadgeColor="warn">mail_outline</mat-icon>
+                   </h4>
+                </mat-card-title>
+                <mat-card-content>
+                   <h5>Pending Letter Requests</h5>
+                   <h1 id="h1_custom">{{pendingLettersCount}} </h1>
+                   <button mat-raised-button color="primary" (click)="navigateToLetterRequests()">Go to Letter Requests</button>
+                </mat-card-content>
+             </mat-card>
+          </div>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space between" fxLayoutWrap fxLayoutGap="2%" fxLayoutAlign="start">
+             <mat-card fxFlex="32%">
+                <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+                   <h4>
+                      Suggestions
+                      <mat-icon matBadge="15" matBadgeColor="warn">how_to_vote</mat-icon>
+                   </h4>
+                </mat-card-title>
+                <mat-card-content>
+                   <h1 id="h1_custom">{{newSuggestionsComplaints}} </h1>
+                   <button mat-raised-button color="primary" (click)="navigateToComments()">Go to Suggetions</button>
+                </mat-card-content>
+             </mat-card>
+             <mat-card fxFlex="32%">
+                <mat-card-title fxLayout ="row" fxLayout.lt-md="column">
+                   <h4>
+                      System Logs
+                      <mat-icon matBadge="15" matBadgeColor="warn">mail_outline</mat-icon>
+                   </h4>
+                </mat-card-title>
+                <mat-card-content>
+                   <h1 id="h1_custom"><img mat-card-image  src="../../assets/icons/log.png" alt="System Logs" style="text-align: center; height: 55%; width: 60%"></h1>
+                   <button mat-raised-button color="primary">Go to System Logs</button>
+                </mat-card-content>
+             </mat-card>
+             <mat-card fxFlex="32%">
+                <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+                   <h4>
+                      Upcoming Project
+                      <mat-icon matBadge="15" matBadgeColor="warn">event</mat-icon>
+                   </h4>
+                </mat-card-title>
+                <mat-card-content>
+                   <div fxLayout="column wrap" fxLayoutGap="10%" fxLayoutAlign="space-between stretch">
+                      <h1>{{upcomingProjectName}}</h1>
+                      <button mat-raised-button color="primary" (click)="navigateToProject()" [disabled]="!nextProjectAvailable">More Info</button>
+                      <button mat-raised-button color="primary" (click)="navigateToAllProjects()">Go to All Projects</button>
+                   </div>
+                </mat-card-content>
+             </mat-card>
+          </div>
+       </div>
+    </div>
+ </div>

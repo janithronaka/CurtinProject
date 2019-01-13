@@ -1,0 +1,337 @@
+<!--<div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="2%" fxLayoutAlign="start">
+
+    <mat-card fxFlex="100%">
+        <mat-card-title fxLayout.gt-sm="row" fxLayout.lt-md="column">
+           <h4>
+             User Profile
+              <mat-icon matBadge="15" matBadgeColor="warn">perm_media</mat-icon>
+           </h4>
+        </mat-card-title>
+        <mat-card-content>
+
+
+
+<label><b>{{sessionID}} USER DETAILS</b></label>
+<ul>
+  <li><mat-label>Member ID:- {{sessionID}}</mat-label><br></li>
+  <li><mat-label>Name:- {{mem_Name}}</mat-label></li>
+</ul><br><br>
+
+<form name="userProfile" (ngSubmit)="onEditProfie(userProfile)" #userProfile="ngForm">
+
+<mat-card fxFlex="55" class="profile_card">
+
+    <input type="hidden"
+     value="{{id}}"
+     name="_id"
+     #_id="ngModel"
+     [(ngModel)]="id"
+     >
+     <br>
+<div> -->
+     <!-- Right Side -->
+<!--
+<div class="left">
+  <mat-label class="lbl_mem_name">Member Name :-</mat-label>
+   <mat-form-field class="form_field">
+      <input matInput placeholder="Member Name"
+       value="{{mem_Name}}"
+       name="memberName"
+       #memberName="ngModel"
+       [(ngModel)]="mem_Name"
+        required
+       >
+   </mat-form-field><br>
+
+
+  <mat-label class="lbl_mem_name">DOB :-</mat-label>
+   <mat-form-field class="dob">
+      <input matInput placeholder="DOB"
+      value="{{dob}}"
+      name="memberDob"
+      #memberDob="ngModel"
+      [(ngModel)]="dob"
+      required
+      >
+   </mat-form-field><br>
+
+   <mat-label class="lbl_mem_name">Religion :-</mat-label>
+   <mat-form-field class="region">
+      <input matInput placeholder="Religion"
+       value="{{Religion}}"
+       name="religion"
+       #religion="ngModel"
+       [(ngModel)]="Religion"
+       required
+       >
+   </mat-form-field><br>
+
+   <mat-label class="lbl_mem_name">Address :-</mat-label>
+   <mat-form-field class="home_add">
+      <textarea matInput placeholder="Home Address"
+      value="{{address}}"
+      name="homeAddress"
+      #homeAddress="ngModel"
+      [(ngModel)]="address"
+      required
+      ></textarea>
+   </mat-form-field><br>
+
+   <mat-label class="lbl_mem_name">Mobile Phone :-</mat-label>
+   <mat-form-field class="mobile">
+      <input matInput placeholder="Mobile Phone"
+       value="{{mobilePhone}}"
+       name="mobileNo"
+       #mobileNo="ngModel"
+       [(ngModel)]="mobilePhone"
+       required>
+       <mat-error>
+          Please provide a name.
+    </mat-error>
+   </mat-form-field><br>
+
+   <mat-label class="lbl_mem_name">Occupation :-</mat-label>
+   <mat-form-field class="occupation">
+      <input matInput placeholder="Occupation"
+       value="{{occupation}}"
+       name="memberOccup"
+       #memberOccup="ngModel"
+       [(ngModel)]="occupation"
+       required
+       >
+   </mat-form-field>
+</div> -->
+<!-- Right Side -->
+<!--
+<div class="right">
+   <mat-label class="lbl_nic">NIC Number  :-</mat-label>
+   <mat-form-field class="nic">
+      <input matInput placeholder="NIC Number"
+      value="{{NICnumber}}"
+      name="nicNo"
+      #nicNo="ngModel"
+      [(ngModel)]="NICnumber"
+      required>
+   </mat-form-field><br>
+
+   <mat-label class="lbl_nationality">Natinality  :-</mat-label>
+   <mat-form-field class="natinality">
+      <input matInput placeholder="Nationlity"
+      value="{{Nationality}}"
+      name="natinality"
+      #nationality="ngModel"
+      [(ngModel)]="Nationality"
+      required
+      >
+   </mat-form-field><br>
+
+  <mat-label class="lbl_civil">Civil Status:-</mat-label>
+   <mat-form-field class="civil">
+      <input matInput placeholder="Civil Status"
+       value="{{civil}}"
+       name="civilStatus"
+       #civilStatus="ngModel"
+       [(ngModel)]="civil"
+       required
+       >
+   </mat-form-field><br>
+
+    <mat-label class="lbl_resident">Resident Phone :-</mat-label>
+   <mat-form-field class="resident">
+      <input matInput placeholder="Rsident Phone"
+       value="{{residentPhone}}"
+       name="homeTel"
+       #homeTel="ngModel"
+       [(ngModel)]="residentPhone"
+       >
+       <mat-error *ngIf= validNum>Invalid phone number</mat-error>
+   </mat-form-field><br>
+
+   <mat-label class="lbl_email">Personal Email :-</mat-label>
+   <mat-form-field class="email">
+      <input matInput placeholder="Personal Email"
+       value="{{email}}"
+       name="personalEmail"
+       #personalEmail="ngModel"
+       [(ngModel)]="email"
+       required
+       >
+   </mat-form-field>
+
+<div fxLayout="row" fxLayoutGap="4%" fxLayoutAlign="end">
+    <button class="edit_btn" mat-raised-button color="primary" type="submit">Edit</button>
+    </div>
+
+</div>
+
+</div>
+
+</mat-card>
+
+</form>
+
+<mat-label class="lbl_password" (click)="reset_pass()"><b>Reset Password</b></mat-label>
+
+</mat-card-content>
+</mat-card>
+</div>
+-->
+
+
+
+
+<div id="content">
+    <mat-card fxFlex="100">
+      <div class="fixed">
+          <mat-card-title>
+            <h2>User Profile</h2>
+            </mat-card-title>
+            <ul>
+           <li class="lbl_password"><mat-label (click)="reset_pass()"><b>Reset Password</b></mat-label></li>
+            </ul>
+      </div>
+      <br>
+      <mat-card-content>
+          <div>
+              <mat-card class="matCard" fxLayout.lt-md="column" fxLayoutAlign="space between" fxLayout="row" fxFlex="70" fxLayoutGap="2%">
+                  <form name="userProfile" (ngSubmit)="onEditProfie(userProfile)" #userProfile="ngForm">
+
+                      <input type="hidden"
+                      value="{{id}}"
+                      name="_id"
+                      #_id="ngModel"
+                      [(ngModel)]="id"
+                      >
+                      <br>
+
+                    <div fxLayout="column"  >
+                      <div fxLayout="row " fxLayoutGap="10%">
+                          <mat-form-field fxFlex = "80">
+                              <input matInput name="p" value="{{mem_Name}}"
+                              name="memberName"
+                              #memberName="ngModel"
+                              [(ngModel)]="mem_Name"
+                               required placeholder="Name (in NIC)" >
+                           </mat-form-field>
+
+                           <mat-form-field fxFlex = "80">
+                              <input matInput placeholder="National ID No"
+                              value="{{NICnumber}}"
+                              name="nicNo"
+                              #nicNo="ngModel"
+                              [(ngModel)]="NICnumber"
+                              required>
+                           </mat-form-field>
+                        </div>
+                        <br>
+                        <div fxLayout="row " fxLayoutGap="20%">
+                           <mat-form-field fxFlex = "80">
+                              <input matInput placeholder="Date of Birth"
+                              value="{{dob}}"
+                              name="memberDob"
+                              #memberDob="ngModel"
+                              [(ngModel)]="dob"
+                              required>
+                           </mat-form-field>
+                           <mat-form-field fxFlex = "80">
+                              <input matInput placeholder="Nationality"
+                              value="{{Nationality}}"
+                              name="natinality"
+                              #nationality="ngModel"
+                              [(ngModel)]="Nationality"
+                              required>
+                           </mat-form-field>
+                           <mat-form-field fxFlex = "80">
+                              <input matInput placeholder="Religion"
+                              value="{{Religion}}"
+                              name="religion"
+                              #religion="ngModel"
+                              [(ngModel)]="Religion"
+                              required>
+                           </mat-form-field>
+                        </div>
+                        <br>
+                        <div fxLayout="row " fxLayoutGap="20%">
+                            <mat-form-field fxFlex = "80">
+                                <input matInput placeholder="Civil Status"
+                                value="{{civil}}"
+                                name="civilStatus"
+                                #civilStatus="ngModel"
+                                [(ngModel)]="civil"
+                                required>
+                             </mat-form-field>
+
+                           <mat-form-field fxFlex = "80">
+                              <input matInput placeholder="Occupation"
+                              value="{{occupation}}"
+                              name="memberOccup"
+                              #memberOccup="ngModel"
+                              [(ngModel)]="occupation"
+                              required>
+                           </mat-form-field>
+                        </div>
+                        <br>
+                        <div>
+                           <mat-form-field fxFlex = "80">
+                              <textarea matInput placeholder="Address" rows="4"
+                              value="{{address}}"
+                              name="homeAddress"
+                              #homeAddress="ngModel"
+                              [(ngModel)]="address"
+                              required></textarea>
+                           </mat-form-field>
+                        </div>
+                        <br>
+                        <div fxLayout="row " fxLayoutGap="20%">
+                           <mat-form-field fxFlex = "80">
+                              <input matInput placeholder="Telephone"
+                              value="{{residentPhone}}"
+                              name="homeTel"
+                              #homeTel="ngModel"
+                              [(ngModel)]="residentPhone">
+                              <mat-error *ngIf= validNum>Invalid phone number</mat-error>
+                           </mat-form-field>
+                           <mat-form-field fxFlex = "80">
+                              <input matInput placeholder="Mobile"
+                              value="{{mobilePhone}}"
+                              name="mobileNo"
+                              #mobileNo="ngModel"
+                              [(ngModel)]="mobilePhone"
+                              required >
+                              <mat-error *ngIf= validNum>Invalid phone number</mat-error>
+                           </mat-form-field>
+                           <mat-form-field fxFlex = "80">
+                              <input matInput placeholder="Email"
+                              value="{{email}}"
+                              name="personalEmail"
+                              #personalEmail="ngModel"
+                              [(ngModel)]="email"
+                              required>
+                           </mat-form-field>
+                        </div>
+                     </div>
+                     <div fxLayout="row" fxLayoutGap="4%" fxLayoutAlign="center" >
+                        <button mat-raised-button color="primary" type="submit">Edit</button>
+                     </div>
+                    </form>
+              </mat-card>
+              <mat-card fxFlex="30">
+                  <label><b><h5><u>{{sessionID}} OTHER USER DETAILS</u></h5></b></label>
+                  <ul>
+                    <li><mat-label><b>Member ID:-</b> <h6>{{sessionID}}</h6></mat-label></li><br>
+                    <li><mat-label><b>Name:-</b><h6> {{mem_Name}}</h6></mat-label></li><br>
+                    <li *ngFor="let item of degree"><mat-label><b>Degree Program:-</b> <h6>{{item.degreeProgram}}</h6></mat-label></li><br>
+                    <li *ngFor="let item of degree"><mat-label><b>Univercity:-</b> <h6>{{item.university}}</h6></mat-label></li><br>
+                    <li><mat-label><b>Admision Date:-</b> <h6>{{admisionDate | date: formatsDateTest}}</h6></mat-label></li><br>
+                    <li><mat-label><b>Admision No:-</b> <h6>{{addmissionNo}}</h6></mat-label></li>
+                  </ul>
+              </mat-card>
+          </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+
+
+

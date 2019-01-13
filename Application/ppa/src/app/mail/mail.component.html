@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-title>Send Acknowledgement Mails</mat-card-title>
+  <!-- <mat-spinner *ngIf="loading"></mat-spinner> -->
+  <form #frmEmail="ngForm" *ngIf="!loading" (ngSubmit)="sendEmail(frmEmail)">
+    <mat-form-field>
+      <input matInput type="email" #to="ngModel" name="to" [(ngModel)]="newEmail.to" placeholder="To">
+      <!-- <mat-error *ngIf="form.get('projectId').invalid">Please enter Project Name.</mat-error> -->
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <input matInput type="text" #subject="ngModel" name="subject" [(ngModel)]="newEmail.subject" placeholder="Subject">
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <textarea matInput rows=5 #body="ngModel" name="body" [(ngModel)]="newEmail.body" placeholder="Body"></textarea>
+      <!-- <mat-error *ngIf="form.get('description').invalid">Please enter Project Description.</mat-error> -->
+    </mat-form-field>
+    <br /><br />
+    <!-- <button disabled mat-raised-button color="accent" *ngIf="isSave">
+      <mat-spinner [diameter]="35" class="save-spinner" *ngIf="isSave"></mat-spinner>
+    </button> -->
+    <button mat-raised-button color="accent" type="submit">Send Email</button>
+  </form>
+</mat-card>

@@ -1,0 +1,24 @@
+.reset_card {
+  width: 54%;
+  margin-top: 12%;
+
+  margin-right: 100px;
+  height: 440px;
+  float: right;
+
+}
+
+.txt_email {
+  width: 70%;
+  margin-top: 5%;
+ }
+
+ .member_id {
+  width: 70%;
+
+ }
+#btn_submit {
+  margin-left: 25%;
+  margin-top: 1%;
+
+}

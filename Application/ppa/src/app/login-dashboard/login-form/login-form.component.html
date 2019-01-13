@@ -1,0 +1,75 @@
+
+
+<body>
+
+
+<div>
+<button mat-raised-button onclick="document.getElementById('modal_login').style.display='block'"  class="mdl_lgn_btn" *ngIf=!login>Login</button>
+<label class="lgn_span" *ngIf=login>Welcome {{sessionName}}</label><br>
+<label class="lgn_lable" (click)="logout()"  *ngIf=login>Logout</label>
+
+<div id="modal_login" class="modal">
+
+
+      <form class="modal-content animate" name="LgForm" (ngSubmit)="onLogin(LgForm)" #LgForm="ngForm" >
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('modal_login').style.display='none'" class="close" title="Close Modal">&times;</span>
+
+      <i class="material-icons">account_circle</i>
+    </div>
+
+
+    <div class="container">
+        <div>
+            <mat-form-field class="member_id">
+              <input matInput
+               #memID="ngModel"
+               [(ngModel)]="memberID"
+               placeholder="Member ID"
+               name="memberID"
+               required>
+            </mat-form-field>
+         </div>
+         <div>
+            <mat-form-field class="member_pass">
+              <input matInput
+               #memPass="ngModel"
+               [(ngModel)]="memberPass"
+                required
+                 placeholder="Member Password"
+                 type="password"
+                 name="memberPass">
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="primary" type="submit" class="lgn_btn">Submit</button>
+
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button mat-raised-button color="primary" type="button" onclick="document.getElementById('modal_login').style.display='none'" class="cancelbtn">Cancel</button>
+      <span class="psw">Forgot <a [routerLink]="['/login-reset']"  onclick="document.getElementById('modal_login').style.display='none'" routerLinkActive="router-link-active"  >password?</a></span>
+    </div>
+
+  </form>
+</div>
+
+
+
+
+
+<script>
+// Get the modal
+var modal = document.getElementById('modal_login');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+</script>
+</div>
+</body>
+

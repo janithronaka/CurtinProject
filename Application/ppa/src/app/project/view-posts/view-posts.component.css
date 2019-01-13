@@ -1,0 +1,20 @@
+.post {
+    width: 80%;
+    margin: 5%;
+}
+
+.footer-buttons {
+    margin: 1%;
+}
+
+.attachment {
+    margin: 1%;
+    flex: 1;
+}
+.attachment-container {
+    margin: 1%;
+    display: flex;
+}
+.attachments {   
+    display: flex;
+}

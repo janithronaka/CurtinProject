@@ -1,0 +1,134 @@
+<div id="content">
+  <mat-card fxFlex="100">
+    <div class="fixed">
+        <mat-card-title>
+          <h2>Review Memberships</h2>
+          </mat-card-title>
+          <mat-card>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.lt-md="center" fxLayoutGap="3%">
+                <div fxFlex="20" fxLayout="row" fxLayoutGap="2%" style="height: 35px">
+                    <button mat-raised-button (click)="setAllAccepted()" color="primary" [disabled]="!bAcceptBtn">Accept</button>
+                    <button mat-button (click)="setAllRejected()" color="warn" [disabled]="!bRejectBtn">Reject</button>
+                </div>
+                <div fxFlex="70" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign.lt-md="center">
+                    <div fxFlex="50">
+                        <mat-form-field fxFlex="80" fxFlex.lt-sm="100">
+                          <input matInput [(ngModel)]="searchText" placeholder="Name, Spouse Name, NIC, Occupation...">
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50">
+                        <mat-form-field fxFlex="100" fxFlex.lt-sm="100">
+                            <mat-label>Sort By:</mat-label>
+                            <mat-select  [(value)]="selected" (selectionChange)="onSortingChange()">
+                                <mat-option value="all">All Memberships</mat-option>
+                                <mat-option value="pending">Pending Memberships</mat-option>
+                                <mat-option value="accepted">Accepted Memberships</mat-option>
+                                <mat-option value="rejected">Rejected Memberships</mat-option>
+                             </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+          </mat-card>
+    </div>
+    <br>
+    <mat-card-content>
+        <div *ngFor="let membership of membershipRequests | filter : searchText : selected">
+            <mat-card fxLayout="row" fxLayoutGap="2%">
+              <mat-checkbox (change)="onCheckboxToogle($event, membership)" value="checkBoxStaus(checkBox.value, checkBoxResetStaus)" #checkBox></mat-checkbox>
+              <mat-expansion-panel fxFlex="95">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title fxLayout="row" fxLayoutGap="2%">
+                        <div fxFlex="65" fxLayout="row" fxLayoutGap="2%">
+                            <mat-card-content><h6>{{membership.memberName}}</h6></mat-card-content>
+                        </div>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <div fxLayout="column">
+                    <div>
+                        <mat-form-field fxFlex = "64">
+                            <input matInput placeholder="Name (in NIC)" value={{membership.memberName}} readonly>
+                         </mat-form-field>
+                    </div>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "47">
+                            <input matInput placeholder="Preferred Name" value={{membership.preferredName}} readonly>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "15">
+                            <input matInput placeholder="National ID No" value="{{membership.nicNo}}" readonly>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Date of Birth" value="{{membership.memberDob | date: 'dd/MM/yyyy'}}" readonly>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Nationality" value="{{membership.nationality}}" readonly>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Religion" value="{{membership.religion}}" readonly>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Addmission (SBV)" value="{{membership.addmisionDate | date: 'dd/MM/yyyy'}}" readonly>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Addmission No" value="{{membership.addmissionNo}}" readonly>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Leaving (SBV)" value="{{membership.leavingDate | date: 'dd/MM/yyyy'}}" readonly>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Registration (OGA)" value="{{membership.registrationDate | date: 'dd/MM/yyyy'}}" readonly>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Life Membership Receipt No" value="{{membership.receiptNo}}" readonly>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Civil Status" value="{{membership.civilStatus}}" readonly>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="No of Children" value="{{membership.childrenCount}}" readonly>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div>
+                         <mat-form-field fxFlex = "42">
+                            <textarea matInput placeholder="Address" value="{{membership.homeAddress}}" rows="4" readonly></textarea>
+                         </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row " fxLayoutGap="2%">
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Telephone" value="{{membership.homeTel}}" readonly>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Mobile" value="{{membership.mobileNo}}" readonly>
+                         </mat-form-field>
+                         <mat-form-field fxFlex = "20">
+                            <input matInput placeholder="Email" value="{{membership.personalEmail}}" readonly>
+                         </mat-form-field>
+                      </div>
+                   </div>
+                </mat-expansion-panel>
+                <button mat-icon-button color="primary">
+                    <mat-icon aria-label="Show detailed view of the application" (click)="onClickDetailedView(membership)">launch</mat-icon>
+                </button>
+            </mat-card>
+        </div>
+    </mat-card-content>
+  </mat-card>
+</div>

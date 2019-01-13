@@ -1,0 +1,88 @@
+.photo-card {
+  object-fit: cover;
+  width: 100%;
+  height: 80%;
+}
+
+.main-view-div {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.no-image-info {
+  text-align: center;
+}
+
+button {
+  width: 100%;
+}
+
+.tile {
+  width: 97%;
+  height: 97%;
+}
+
+.tile2 {
+  width: 99%;
+  height: 97%;
+}
+
+h6 {
+  text-align:center;
+}
+
+.total-acc {
+  font-size: 120px;
+  height: 70%;
+  text-align:center;
+}
+
+.total-amount {
+  font-size: 50px;
+  text-align:right;
+}
+
+.total-amount-text {
+  font-size: 20px;
+  text-align:left;
+}
+
+.bottom-comp {
+  position: absolute;
+  width: 90%;
+  bottom: 5%;
+  right: 5%;
+  left: 5%;
+}
+
+img {
+  height: 250px;
+  width: 40%;
+  margin-left: 25%;
+	object-fit: contain;
+}
+
+.item1-div {
+  display:table-cell;
+  width:50%;
+}
+
+.item2-div {
+  display:table-cell;
+  width:50%;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+mat-table {
+  box-shadow: none !important;
+}
+
+.amount-cell {
+  display:flex !important;
+  justify-content:flex-end!important;
+}

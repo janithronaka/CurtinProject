@@ -1,0 +1,20 @@
+.reset_card {
+  width: 72%;
+  margin-top: 15%;
+
+  margin-right: -120px;
+  height: 440px;
+  float: right;
+
+}
+
+.txt_code, .txt_pass, .txt_conpass  {
+  width: 70%;
+
+ }
+
+#btn_submit {
+  margin-left: 25%;
+  margin-top: 1%;
+
+}

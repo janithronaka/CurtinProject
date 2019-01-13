@@ -1,0 +1,59 @@
+<mat-card class="table-container">
+  <mat-card-title>Members</mat-card-title>
+  <mat-form-field>
+    <mat-select [(ngModel)]="filterOption" placeholder="Filter by">
+      <mat-option value="all">All</mat-option>
+      <mat-option value="memberName">Member Name</mat-option>
+      <mat-option value="nicNo">NIC</mat-option>
+      <mat-option value="addmissionNo">Addmission No</mat-option>
+      <mat-option value="memberOccup">Occupation</mat-option>
+      <mat-option value="personalEmail">Email</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="filterString" placeholder="Filter">
+  </mat-form-field>
+  <button mat-icon-button (click)="onSearch()">
+    <mat-icon>search</mat-icon>
+  </button>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <div class="tab-container mat-elevation-z8">
+    <mat-table [dataSource]="accountData" *ngIf="!loading">
+      <!-- Account ID Column -->
+      <ng-container matColumnDef="memberName">
+        <mat-header-cell *matHeaderCellDef> Member Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.memberName}} </mat-cell>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="nicNo">
+        <mat-header-cell *matHeaderCellDef> NIC No </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.nicNo}} </mat-cell>
+      </ng-container>
+
+      <!-- State Column -->
+      <ng-container matColumnDef="addmissionNo">
+        <mat-header-cell class="mat-column-status" *matHeaderCellDef> Addmission No </mat-header-cell>
+        <mat-cell class="mat-column-status" *matCellDef="let element"> {{element.addmissionNo}} </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actionsColumn">
+        <mat-header-cell class="action-cell" *matHeaderCellDef>
+          <span class="spacer"></span>
+        </mat-header-cell>
+        <mat-cell class="action-cell" *matCellDef="let element">
+          <a mat-list-item [routerLink]="['/member-dir-det', element._id]"><button mat-button color="primary">View
+              Detail</button></a>
+          <button mat-button color="warn" (click)="onDelete(element)">Reject</button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': selectedRowIndex == row.id}"
+        (click)="highlight(row)"></mat-row>
+    </mat-table>
+  </div>
+  <mat-paginator class="mat-elevation-z8" [length]="totalAccounts" [pageSizeOptions]="pageSizeOption" [pageSize]="accountsPerPage" (page)="(onPageChanged($event))"
+    *ngIf="accountData.length > 0"></mat-paginator>
+</mat-card>

@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Add New Complain or Suggestion</h2>
+<div fxLayout="column wrap">
+  <mat-form-field>
+    <input matInput placeholder="Title" [(ngModel)]="title" required>
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput placeholder="Comment" [(ngModel)]="comment" required></textarea>
+  </mat-form-field>
+  <mat-slide-toggle
+    color="primary"
+    [(ngModel)]="slideValue">
+    Show Only to Admin
+  </mat-slide-toggle>
+  <mat-dialog-actions fxLayoutAlign="end">
+    <button mat-raised-button (click)="onAdd()" color="primary" *ngIf="bAdd">Add</button>
+    <button mat-raised-button (click)="onSave()" color="primary" *ngIf="bSave">Save</button>
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
+</div>

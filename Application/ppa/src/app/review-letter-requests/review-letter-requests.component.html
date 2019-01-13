@@ -1,0 +1,79 @@
+<div id="content">
+  <mat-card fxFlex="100">
+    <div class="fixed">
+        <mat-card-title>
+          <h2>Review Official Letter Requests</h2>
+          </mat-card-title>
+          <mat-card>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.lt-md="center" fxLayoutGap="3%">
+                    <div fxFlex="80">
+                        <mat-form-field fxFlex="100" fxFlex.lt-sm="100">
+                          <input matInput [(ngModel)]="searchText" placeholder="Search in Remarks">
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="20">
+                      <mat-form-field fxFlex="100" fxFlex.lt-sm="100">
+                          <mat-label>Sort Request Type By:</mat-label>
+                          <mat-select  [(value)]="selectedType">
+                              <mat-option value="all">None</mat-option>
+                              <mat-option value="Committee Service Letter">Committee Service Letter</mat-option>
+                              <mat-option value="Event/Project Details Request Letter">Event/Project Details Request Letter</mat-option>
+                              <mat-option value="Event/Project Budget Request Letter">Event/Project Budget Request Letter</mat-option>
+                           </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex="20">
+                        <mat-form-field fxFlex="100" fxFlex.lt-sm="100">
+                            <mat-label>Sort Request Status By:</mat-label>
+                            <mat-select  [(value)]="selectedStatus">
+                                <mat-option value="all">None</mat-option>
+                                <mat-option value="pending">New Letter Requests</mat-option>
+                                <mat-option value="accepted">Accepted Letter Requests</mat-option>
+                                <mat-option value="rejected">Rejected Letter Requests</mat-option>
+                             </mat-select>
+                        </mat-form-field>
+                    </div>
+            </div>
+          </mat-card>
+    </div>
+    <br>
+    <mat-card-content>
+        <div *ngFor="let request of letterRequests | letterfilter : searchText : selectedStatus : selectedType; index as i">
+            <mat-card fxLayout="row" fxLayoutGap="2%">
+              <mat-expansion-panel fxFlex="100">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title fxLayout="row" fxLayoutGap="2%">
+                        <div fxFlex="65" fxLayout="row" fxLayoutGap="2%">
+                            <mat-card-content><h6>{{request.type}}</h6></mat-card-content>
+                        </div>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div fxLayout="column">
+                    <mat-form-field fxFlex = "42">
+                      <input matInput placeholder="Member Name" value="{{getMemberNameInIndex(i)}}" readonly>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field fxFlex = "20">
+                        <input matInput placeholder="Expected Date" value="{{request.expected_date | date: 'dd/MM/yyyy'}}" readonly>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field fxFlex = "20">
+                        <input matInput placeholder="Request Status" value="{{request.progress}}" readonly>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field fxFlex = "42">
+                      <textarea matInput placeholder="Remarks" value="{{request.remark}}" rows="4" readonly></textarea>
+                    </mat-form-field>
+                    <br><br>
+                    <div fxLayout="row" fxLayoutGap="2%">
+                      <a mat-list-item [routerLink]="['/letter-gen', request.memberID]"><button mat-raised-button color="primary" [fxShow]="request.progress == 'Accepted'">Open Letter Preparation Wizard</button></a>
+                      <button mat-raised-button (click)="onAccept(request)" color="primary" [disabled]="!(request.progress == 'Pending' || request.progress == 'Rejected')">Accept</button>
+                      <button mat-button (click)="onReject(request)" color="warn" [disabled]="!(request.progress == 'Pending')">Reject</button>
+                    </div>
+                   </div>
+                </mat-expansion-panel>
+            </mat-card>
+        </div>
+    </mat-card-content>
+  </mat-card>
+</div>

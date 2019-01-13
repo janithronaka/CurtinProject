@@ -1,0 +1,77 @@
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.profile_card {
+
+  margin: 0px auto;
+}
+
+
+.edit_btn {
+  margin: 20%;
+}
+
+.dob {
+  margin-left: 24.5%;
+
+}
+
+.region {
+  margin-left: 16%;
+}
+
+.home_add {
+  margin-left: 15.5%;
+}
+
+.mobile {
+  margin-left: 2.5%;
+}
+
+.occupation {
+  margin-left: 7%;
+}
+
+.email {
+  margin-left: 1.5%;
+}
+
+.civil {
+  margin-left: 11%;
+}
+
+.natinality {
+  margin-left: 13%;
+ }
+
+ .nic {
+  margin-left: 5.5%;
+}
+
+.lbl_password {
+  margin-left: 5%;
+  cursor: pointer;
+  float: right;
+  color: blueviolet;
+}
+
+.lbl_password :hover {
+  cursor: pointer;
+  color: darkmagenta;
+}
+
+.fixed{
+  position: sticky;
+  top:0;
+  z-index: 999;
+}
+
+
+.matCard {
+  float: right;
+}

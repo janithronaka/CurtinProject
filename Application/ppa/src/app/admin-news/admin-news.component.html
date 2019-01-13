@@ -1,0 +1,76 @@
+<div class="container">
+  <div id="content">
+     <div fxLayout="row" fxLayoutGap="5%">
+        <mat-card fxFlex="60">
+           <mat-card-title>
+              <h3>{{pageTitle}}</h3>
+           </mat-card-title>
+           <mat-card-content>
+              <form name="newsForm" (ngSubmit)="onAddNews(newsForm)" #newsForm>
+                  <input id="newsId" name="newsId" type="hidden" [(ngModel)]="newsId">
+              <div fxLayout="column" fxLayoutGap="2%">
+                 <mat-form-field>
+                    <mat-label>News Title</mat-label>
+                    <input matInput
+                       name="title"
+                       placeholder="News Title"
+                       required
+                       maxlength="100"
+                       #title="ngModel"
+                       [(ngModel)]="Title">
+                    <mat-error *ngIf="title.invalid && title.errors.required">News Title Cannot be Empty</mat-error>
+                    <mat-error *ngIf="title.invalid && title.errors.minlength">News Title is too Long</mat-error>
+                 </mat-form-field>
+                 <mat-form-field>
+                    <mat-label>News Info</mat-label>
+                    <textarea matInput
+                       name="description"
+                       rows="4"
+                       placeholder="News Info"
+                       required
+                       minlength="10"
+                       #description="ngModel"
+                       [(ngModel)]="Description"></textarea>
+                    <mat-error *ngIf="description.invalid && description.errors.required">News Info Cannot be Empty</mat-error>
+                    <mat-error *ngIf="description.invalid && description.errors.minlength">News Info is too Short</mat-error>
+                 </mat-form-field>
+                 <mat-form-field appearence="outline">
+                    <mat-label>Expiration Date</mat-label>
+                    <input matInput
+                      name="exDate"
+                      [min]="minDate"
+                      [matDatepicker]="picker"
+                      placeholder="Choose a date"
+                      [(ngModel)]="expireDate"
+                      disabled="true">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false"></mat-datepicker>
+                 </mat-form-field>
+                 <mat-form-field>
+                    <input matInput
+                    name="link"
+                    placeholder="Link"
+                    maxlength="100"
+                    #link="ngModel"
+                    [(ngModel)]="Link">
+                 </mat-form-field>
+                 <div fxLayout="row" fxLayoutGap="4%" fxLayoutAlign="end" >
+                    <button mat-raised-button type="submit" color="primary">{{submitBtnName}}</button>
+                    <button mat-button fxFlexAlign="start" (click)="onDelete()" color="warn" [disabled]="disableDelete">Delete</button>
+                    <button mat-raised-button (click)="onCancel(newsForm)">Cancel</button>
+                 </div>
+              </div>
+            </form>
+           </mat-card-content>
+        </mat-card>
+        <div fxFlex="30%">
+           <mat-nav-list *ngFor="let news of newsList">
+              <mat-list-item (click)="onEditNews(news)">
+                 <a matLine >{{news.title}}</a>
+                    <mat-icon>edit</mat-icon>
+              </mat-list-item>
+           </mat-nav-list>
+        </div>
+     </div>
+  </div>
+</div>

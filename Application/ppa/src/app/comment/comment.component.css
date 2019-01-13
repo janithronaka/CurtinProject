@@ -1,0 +1,49 @@
+  .circle{
+    display:inline-block;
+    font-size:1em;
+    width:2.5em;
+    height:2.5em;
+    line-height:2.5em;
+    text-align:center;
+    border-radius:50%;
+    background:plum;
+    vertical-align:middle;
+    margin-right:1em;
+    color:white;
+}
+
+.verticleCenter{
+  vertical-align:middle;
+}
+
+.comment{
+  margin-left: 3em;
+  background: lightgray;
+  color: black;
+  border-radius: 25px;
+  padding-bottom:5px;
+}
+
+.comment-data{
+  padding-left : 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 20px;
+  word-wrap: break-word;
+}
+
+.expanded{
+  height: auto;
+}
+
+.collapsed{
+  height: 60px;
+}
+
+.expanded-comment{
+  height: auto;
+}
+
+.collapsed-comment{
+  height: 5px;
+}

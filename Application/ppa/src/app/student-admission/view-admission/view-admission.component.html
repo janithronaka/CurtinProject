@@ -1,0 +1,456 @@
+<div id="content">
+    <div fxLayout="row">
+       <mat-card fxFlex="100">
+          <mat-card-title>
+             <h2>Review Grade 1 Admission</h2>
+          </mat-card-title>
+          <br>
+          <mat-card-content>
+            <form [formGroup]="markDetails">
+              <h5>Basic Details</h5>
+              <br>
+              <div fxLayout="column" fxLayoutGap="2">
+                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
+                    <mat-form-field fxFlex="40%">
+                        <input matInput placeholder="Name of the Applicant" value="{{admission.applicantName}}" readonly>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="20%">
+                      <input matInput placeholder="Date of Birth" value="{{admission.applicantDob | date: 'dd/MM/yyyy'}}" readonly>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
+                  <mat-form-field fxFlex="25%">
+                    <input matInput placeholder="Contact No" value="{{admission.contactNo}}" readonly>
+                  </mat-form-field>
+                  <mat-form-field fxFlex="35%">
+                    <input matInput placeholder="Occupation" value="{{admission.memberOccupation}}" readonly>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
+                  <mat-form-field fxFlex="40%">
+                    <input matInput placeholder="Name of Spouse" value="{{admission.spouseName}}" readonly>
+                  </mat-form-field>
+                  <mat-form-field fxFlex="20%">
+                    <input matInput placeholder="Spouse Occupation" value="{{admission.spouseOccupation}}" readonly>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                  <mat-form-field fxFlex="62%">
+                    <input matInput placeholder="Are there any other children who are currently in school (SBV)?" [value]="getCurrentStudentValue()" readonly>
+                  </mat-form-field>
+                </div>
+                <div *ngIf="admission.currentStudents === 'yes'" fxLayout="row" fxLayout.lt-md="column">
+                  <mat-card fxFlex="62%">
+                      <div *ngFor="let student of admission.currentStudentsArray; let i=index;">
+                          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center" readonly>
+                            <mat-form-field fxFlex="60%">
+                              <input matInput placeholder="Student" value="{{student.student}}">
+                            </mat-form-field>
+                            <mat-form-field fxFlex="30%">
+                              <input matInput placeholder="Year of Admission" value="{{student.admissionYear}}" readonly>
+                            </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <input matInput placeholder="Grade" value="{{student.grade}}" readonly>
+                            </mat-form-field>
+                          </div>
+                          <mat-divider></mat-divider>
+                          <br>
+                        </div>
+                  </mat-card>
+                </div>
+                <br>
+                <mat-checkbox checked="{{admission.coCategory}}" [disabled]="true">Chief Occupant (C/O) Category</mat-checkbox>
+                <mat-checkbox checked="{{admission.ogaCategory}}" [disabled]="true">OGA Category</mat-checkbox>
+                <mat-checkbox checked="{{admission.sisterCategory}}" [disabled]="true">Sister Category</mat-checkbox>
+                <mat-checkbox checked="{{admission.educationServiceCategory}}" [disabled]="true">Education Service Category</mat-checkbox>
+                <mat-checkbox checked="{{admission.transferCategory}}" [disabled]="true">Transfer Category</mat-checkbox>
+                <mat-checkbox checked="{{admission.foreignCategory}}" [disabled]="true">Foreign Category</mat-checkbox>
+                <mat-checkbox checked="{{admission.armedForces}}" [disabled]="true">Armed Forces</mat-checkbox>
+                <br>
+                <br>
+                <br>
+                <h5>Educational achievements (During the school period)</h5>
+                <br>
+                <div fxLayout="column">
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <div fxFlex="62%" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%" fxLayoutAlign="start center" fxLayoutAlign.lt-md="start">
+                            <div fxFlex="70%">
+                                <mat-form-field>
+                                  <input matInput placeholder="No. of Years in School" value="{{admission.schoolYears}}" readonly>
+                                </mat-form-field>
+                              </div>
+                              <div fxFlex="20%">
+                                <mat-form-field appearance="outline">
+                                    <input matInput placeholder="Marks" formControlName="schoolYearsMarks" [(ngModel)]="schoolYearsMarks" required>
+                                    <mat-icon matSuffix>notification_important</mat-icon>
+                                    <mat-hint>Out of 26</mat-hint>
+                                </mat-form-field>
+                              </div>
+                        </div>
+                      </div>
+                      <div fxLayout="row" fxLayout.lt-md="column">
+                          <mat-form-field fxFlex="62%">
+                              <input matInput placeholder="Scholarship Exam" [value]="getScholarshipValue()" readonly>
+                            </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row" fxLayout.lt-md="column">
+                          <div fxFlex="62%" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%" fxLayoutAlign="start center"  fxLayoutAlign.lt-md="start">
+                              <div fxFlex="70%">
+                                  <h6>Educational achievements (During the school period)</h6>
+                                </div>
+                                <div fxFlex="20%">
+                                  <mat-form-field appearance="outline">
+                                    <input matInput placeholder="Marks" formControlName="educationalAchievementsMarks" [(ngModel)]="educationalAchievementsMarks" required>
+                                    <mat-icon matSuffix>notification_important</mat-icon>
+                                    <mat-hint>Out of 25</mat-hint>
+                                  </mat-form-field>
+                                </div>
+                          </div>
+                        </div>
+                      <br>
+                      <label>GCE O/L</label>
+                      <div fxLayout="column" fxLayoutGap="2">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
+                          <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="D / A" value="{{admission.olA}}" readonly>
+                          </mat-form-field>
+                          <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="C / B" value="{{admission.olB}}" readonly>
+                          </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
+                          <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="C" value="{{admission.olC}}" readonly>
+                          </mat-form-field>
+                          <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="S" value="{{admission.olS}}" readonly>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <br>
+                        <br>
+                        <label>GCE A/L</label>
+                        <div fxLayout="column" fxLayoutGap="2">
+                          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
+                            <mat-form-field fxFlex="30%">
+                              <input matInput placeholder="Subject Name" value="{{admission.alSub1}}" readonly>
+                            </mat-form-field>
+                            <mat-form-field fxFlex="30%">
+                              <input matInput placeholder="Result" value="{{admission.alSub1Result}}" readonly>
+                            </mat-form-field>
+                          </div>
+                          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
+                            <mat-form-field fxFlex="30%">
+                              <input matInput placeholder="Subject Name" value="{{admission.alSub2}}" readonly>
+                            </mat-form-field>
+                            <mat-form-field fxFlex="30%">
+                              <input matInput placeholder="Result" value="{{admission.alSub2Result}}" readonly>
+                            </mat-form-field>
+                          </div>
+                          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
+                            <mat-form-field fxFlex="30%">
+                              <input matInput placeholder="Subject Name" value="{{admission.alSub3}}" readonly>
+                            </mat-form-field>
+                            <mat-form-field fxFlex="30%">
+                              <input matInput placeholder="Result" value="{{admission.alSub3Result}}" readonly>
+                            </mat-form-field>
+                          </div>
+                          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
+                            <mat-form-field fxFlex="30%">
+                              <input matInput placeholder="Subject Name" value="{{admission.alSub4}}" readonly>
+                            </mat-form-field>
+                            <mat-form-field fxFlex="30%">
+                              <input matInput placeholder="Result" value="{{admission.alSub4Result}}" readonly>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                </div>
+                <div *ngIf="admission.otherAchievements">
+                  <label>Other Educational Achievements</label>
+                  <div fxLayout="row" fxLayout.lt-md="column">
+                      <mat-card fxFlex="62%">
+                          <div *ngFor="let other of admission.otherAchievements">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                              <mat-form-field fxFlex="90%">
+                                <input matInput placeholder="Achievement" value="{{other.achievement}}" readonly>
+                              </mat-form-field>
+                              <mat-form-field fxFlex="10%">
+                                <input matInput placeholder="Year" value="{{other.year}}" readonly>
+                              </mat-form-field>
+                            </div>
+                            <mat-divider></mat-divider>
+                            <br>
+                          </div>
+                        </mat-card>
+                  </div>
+                </div>
+                <br>
+                <br>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                  <div fxFlex="62%" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%" fxLayoutAlign="start center"  fxLayoutAlign.lt-md="start">
+                    <div fxFlex="70%">
+                      <h5>Achievements from extra curricular activities</h5>
+                      <h5>(During the school period)</h5>
+                    </div>
+                    <div fxFlex="20%">
+                      <mat-form-field appearance="outline">
+                        <input matInput placeholder="Marks" formControlName="extraCurricularMarks" [(ngModel)]="extraCurricularMarks" required>
+                        <mat-icon matSuffix>notification_important</mat-icon>
+                        <mat-hint>Out of 25</mat-hint>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div *ngIf="admission.leaderships">
+                  <label>Leaderships Details</label>
+                  <div fxLayout="row" fxLayout.lt-md="column">
+                      <mat-card fxFlex="62%">
+                          <div *ngFor="let leadership of admission.leaderships">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                              <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Leadership Type" [value]="getLeadershipValue(leadership.lType)" readonly>
+                              </mat-form-field>
+                              <mat-form-field fxFlex="60%">
+                                  <input matInput placeholder="Description" value="{{leadership.description}}" readonly>
+                                </mat-form-field>
+                              <mat-form-field fxFlex="10%">
+                                <input matInput placeholder="Year" value="{{leadership.year}}" readonly>
+                              </mat-form-field>
+                            </div>
+                            <mat-divider></mat-divider>
+                            <br>
+                          </div>
+                        </mat-card>
+                  </div>
+                </div>
+                <br>
+                <div *ngIf="admission.extraCurricularDetails">
+                    <label>Other Extra Curricular Activities</label>
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <mat-card fxFlex="62%">
+                            <div *ngFor="let extra of admission.extraCurricularDetails">
+                              <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                                <mat-form-field fxFlex="20%">
+                                  <input matInput placeholder="Type" [value]="getExtraCurricularValue(extra.eType)" readonly>
+                                </mat-form-field>
+                                <mat-form-field fxFlex="50%">
+                                  <input matInput placeholder="Description" value="{{extra.description}}" readonly>
+                                </mat-form-field>
+                                <mat-form-field fxFlex="10%">
+                                  <input matInput placeholder="Position" [value]="getPositionValue(extra.position)" readonly>
+                                </mat-form-field>
+                                <mat-form-field fxFlex="10%">
+                                  <input matInput placeholder="Other" value="{{extra.other}}" readonly>
+                                </mat-form-field>
+                                <mat-form-field fxFlex="10%">
+                                  <input matInput placeholder="Year" value="{{extra.year}}" readonly>
+                                </mat-form-field>
+                              </div>
+                              <mat-divider></mat-divider>
+                              <br>
+                            </div>
+                          </mat-card>
+                    </div>
+                  </div>
+                  <br>
+                  <div *ngIf="admission.championships">
+                      <label>Championships</label>
+                      <div fxLayout="row" fxLayout.lt-md="column">
+                          <mat-card fxFlex="62%">
+                              <div *ngFor="let championship of admission.championships">
+                                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                                  <mat-form-field fxFlex="20%">
+                                    <input matInput placeholder="Championship Type" [value]="getChampionshipValue(championship.cType)" readonly>
+                                  </mat-form-field>
+                                  <mat-form-field fxFlex="60%">
+                                    <input matInput placeholder="Description" value="{{championship.description}}" readonly>
+                                  </mat-form-field>
+                                  <mat-form-field fxFlex="10%">
+                                    <input matInput placeholder="Place" value="{{championship.place}}" readonly>
+                                  </mat-form-field>
+                                  <mat-form-field fxFlex="10%">
+                                    <input matInput placeholder="Year" value="{{championship.year}}" readonly>
+                                  </mat-form-field>
+                                </div>
+                                <mat-divider></mat-divider>
+                                <br>
+                              </div>
+                            </mat-card>
+                      </div>
+                    </div>
+                    <br>
+                    <div *ngIf="admission.others">
+                        <label>Other Extra Curricular Activities</label>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <mat-card fxFlex="62%">
+                                <div *ngFor="let other of admission.others">
+                                  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                                    <mat-form-field fxFlex="90%">
+                                      <input matInput placeholder="Description" value="{{other.description}}" readonly>
+                                    </mat-form-field>
+                                    <mat-form-field fxFlex="10%">
+                                      <input matInput placeholder="Year" value="{{other.year}}" readonly>
+                                    </mat-form-field>
+                                  </div>
+                                  <mat-divider></mat-divider>
+                                  <br>
+                                </div>
+                              </mat-card>
+                        </div>
+                      </div>
+                    <br>
+                <br>
+                <br>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxFlex="62%" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%" fxLayoutAlign="start center"  fxLayoutAlign.lt-md="start">
+                        <div fxFlex="70%">
+                            <h5>After the School Period</h5>
+                          </div>
+                          <div fxFlex="20%">
+                            <mat-form-field appearance="outline">
+                              <input matInput placeholder="Marks" formControlName="afterSchoolMarks" [(ngModel)]="afterSchoolMarks" required>
+                              <mat-icon matSuffix>notification_important</mat-icon>
+                              <mat-hint>Out of 24</mat-hint>
+                            </mat-form-field>
+                          </div>
+                    </div>
+                  </div>
+                  <div *ngIf="admission.educationAchievements">
+                      <label>Educational achievements</label>
+                      <div fxLayout="row" fxLayout.lt-md="column">
+                          <mat-card fxFlex="62%">
+                              <div *ngFor="let edu of admission.educationAchievements">
+                                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                                  <mat-form-field fxFlex="30%">
+                                    <input matInput placeholder="Qualification Type" [value]="getEducationalQualificationValue(edu.eType)" readonly>
+                                  </mat-form-field>
+                                  <mat-form-field fxFlex="60%">
+                                    <input matInput placeholder="Qualification" value="{{edu.qualification}}" readonly>
+                                  </mat-form-field>
+                                  <mat-form-field fxFlex="10%">
+                                      <input matInput placeholder="Year" value="{{edu.year}}" readonly>
+                                    </mat-form-field>
+                                </div>
+                                <mat-divider></mat-divider>
+                                <br>
+                              </div>
+                            </mat-card>
+                      </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%">
+                        <mat-form-field fxFlex="20%">
+                            <input matInput placeholder="OGA Membership No" value="{{admission.membershipId}}" readonly>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="20%">
+                            <input matInput placeholder="Registration Date" value="{{admission.membershipDate | date: 'dd/MM/yyyy'}}" readonly>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="18%">
+                          <input matInput placeholder="OGA Membership (No. Of Years)" value="{{admission.membershipYears}}" readonly>
+                        </mat-form-field>
+                    </div>
+                    <br>
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <mat-form-field fxFlex="62%">
+                          <input matInput placeholder="Have you offered any service throughout a year?" [value]="getServicesOfferedValue()" readonly>
+                        </mat-form-field>
+                      </div>
+                <br>
+                <div *ngIf="admission.servicesOffered === 'yes'">
+                    <label>Services Offered</label>
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <mat-card fxFlex="62%">
+                            <div *ngFor="let service of admission.services">
+                              <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                                <mat-form-field fxFlex="70%">
+                                  <input matInput placeholder="Description" value="{{service.description}}" readonly>
+                                </mat-form-field>
+                                <mat-form-field fxFlex="30%">
+                                  <input matInput placeholder="Year" value="{{service.year}}" readonly>
+                                </mat-form-field>
+                              </div>
+                              <mat-divider></mat-divider>
+                              <br>
+                            </div>
+                          </mat-card>
+                    </div>
+                  </div>
+                  <br>
+                  <div *ngIf="admission.letters">
+                      <label>Service Letters</label>
+                      <div fxLayout="row" fxLayout.lt-md="column">
+                          <mat-card fxFlex="62%">
+                              <div *ngFor="let letter of admission.letters">
+                                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                                    <mat-form-field fxFlex="20%">
+                                        <input matInput placeholder="Description" [value]="getLetterTypeValue(letter.lType)" readonly>
+                                      </mat-form-field>
+                                      <mat-form-field fxFlex="20%">
+                                          <input matInput placeholder="Year" value="{{letter.letterNo}}" readonly>
+                                        </mat-form-field>
+                                  <mat-form-field fxFlex="60%">
+                                    <input matInput placeholder="Description" value="{{letter.description}}" readonly>
+                                  </mat-form-field>
+                                </div>
+                                <mat-divider></mat-divider>
+                                <br>
+                              </div>
+                            </mat-card>
+                      </div>
+                    </div>
+              <br>
+              <div *ngIf="admission.donations">
+                  <label>Donations</label>
+                  <div fxLayout="row" fxLayout.lt-md="column">
+                      <mat-card fxFlex="62%">
+                          <div *ngFor="let donation of admission.donations">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                                  <mat-form-field fxFlex="70%">
+                                      <input matInput placeholder="Receipt No" value="{{donation.receiptNo}}" readonly>
+                                    </mat-form-field>
+                              <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Amount" value="{{donation.total}}" readonly>
+                              </mat-form-field>
+                            </div>
+                            <mat-divider></mat-divider>
+                            <br>
+                          </div>
+                        </mat-card>
+                  </div>
+                </div>
+              <br>
+              <div *ngIf="admission.committee">
+                  <label>Member of the executive committee / Committee Member</label>
+                  <div fxLayout="row" fxLayout.lt-md="column">
+                      <mat-card fxFlex="62%">
+                          <div *ngFor="let committeePost of admission.committee">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="3.5%" fxLayoutAlign="center">
+                                  <mat-form-field fxFlex="70%">
+                                      <input matInput placeholder="Post" value="{{committeePost.post}}" readonly>
+                                    </mat-form-field>
+                              <mat-form-field fxFlex="30%">
+                                <input matInput placeholder="Year" value="{{committeePost.year}}" readonly>
+                              </mat-form-field>
+                            </div>
+                            <mat-divider></mat-divider>
+                            <br>
+                          </div>
+                        </mat-card>
+                  </div>
+                </div>
+              <br>
+                <div fxLayout="row" fxLayoutGap="5">
+                  <button mat-button (click)="reject()" color="warn" *ngIf="admission.status !== 'Rejected'">Reject</button>
+                  <button mat-button (click)="cancel()">Cancel</button>
+                  <button mat-raised-button (click)="accept()" color="primary" *ngIf="admission.status !== 'Reviewed'">Accept</button>
+                  <button mat-raised-button (click)="save()" color="primary" *ngIf="admission.status === 'Reviewed'">Save</button>
+                </div>
+            </div>
+          </form>
+          </mat-card-content>
+       </mat-card>
+    </div>
+  </div>

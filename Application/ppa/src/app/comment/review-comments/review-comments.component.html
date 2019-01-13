@@ -1,0 +1,62 @@
+<div id="content">
+    <mat-card fxFlex="100">
+      <div class="fixed">
+          <mat-card-title>
+            <h2>View Suggestions & Complaints</h2>
+            </mat-card-title>
+            <mat-card>
+              <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.lt-md="center" fxLayoutGap="3%">
+                      <div fxFlex="80">
+                          <mat-form-field fxFlex="100" fxFlex.lt-sm="100">
+                            <input matInput [(ngModel)]="searchText" placeholder="Search by Member Name, Project Name, Project Id, Member Id...">
+                          </mat-form-field>
+                      </div>
+                      <div fxFlex="20">
+                        <mat-form-field fxFlex="100" fxFlex.lt-sm="100">
+                            <mat-label>View:</mat-label>
+                            <mat-select  [(value)]="selectedType">
+                                <mat-option value="all">All Suggestions & Complaints</mat-option>
+                                <mat-option value="new">New Suggestions & Complaints</mat-option>
+                             </mat-select>
+                        </mat-form-field>
+                      </div>
+              </div>
+            </mat-card>
+      </div>
+      <br>
+      <mat-card-content>
+          <div *ngFor="let cmnt of comments | commentfilter : searchText : selectedType; index as i">
+              <mat-card fxLayout="row" fxLayoutGap="2%">
+                <mat-expansion-panel fxFlex="100">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title fxLayout="row" fxLayoutGap="2%">
+                          <div fxFlex="65" fxLayout="row" fxLayoutGap="2%">
+                              <mat-card-content><label>{{cmnt.comment}}</label></mat-card-content>
+                          </div>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div fxLayout="column">
+                      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="3%">
+                        <mat-form-field fxFlex = "70">
+                          <input matInput placeholder="Member Name" value="{{cmnt.memberName}}" readonly>
+                        </mat-form-field>
+                        <mat-form-field fxFlex = "30">
+                          <input matInput placeholder="Member Id" value="{{cmnt.memberId}}" readonly>
+                        </mat-form-field>
+                      </div>
+                      <br>
+                      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="3%">
+                          <mat-form-field fxFlex = "70">
+                            <input matInput placeholder="Project Name" value="{{cmnt.projectName}}" readonly>
+                          </mat-form-field>
+                          <mat-form-field fxFlex = "30">
+                            <input matInput placeholder="Project Id" value="{{cmnt.projectId}}" readonly>
+                          </mat-form-field>
+                        </div>
+                     </div>
+                  </mat-expansion-panel>
+              </mat-card>
+          </div>
+      </mat-card-content>
+    </mat-card>
+  </div>

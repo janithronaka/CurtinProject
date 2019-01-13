@@ -1,0 +1,80 @@
+<mat-card>
+  <mat-card-title>{{formTitle}}</mat-card-title>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <form [formGroup]="form" #formDirective="ngForm" *ngIf="!loading" (submit)="onSaveAccount(formDirective)">
+    <mat-grid-list cols="2">
+      <mat-grid-tile>
+        <mat-card class="sectiondet">
+          <mat-card-title>Personal Data</mat-card-title>
+          <br />
+          <div>
+              <br />
+            <mat-form-field>
+              <input matInput type="text" formControlName="memberName" placeholder="memberName">
+              <mat-error *ngIf="form.get('memberName').invalid">Please enter an memberName.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="text" formControlName="preName" placeholder="Preffered Name">
+              <mat-error *ngIf="form.get('preName').invalid">Please enter an Preffered Name.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <textarea matInput formControlName="nicNo" placeholder="nicNo"></textarea>
+              <mat-error *ngIf="form.get('nicNo').invalid">Please enter a nicNo.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="text" formControlName="memberDob" placeholder="DOB">
+              <mat-error *ngIf="form.get('memberDob').invalid">Please enter DOB.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="text" formControlName="nationality" placeholder="nationality">
+              <mat-error *ngIf="form.get('nationality').invalid">Please enter nationality.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="text" formControlName="religion" placeholder="religion">
+              <mat-error *ngIf="form.get('religion').invalid">Please enter religion.</mat-error>
+            </mat-form-field>
+            <br />    <br />
+          </div>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+
+        <div>
+            <br /><br />
+          <mat-card class="sectiondet">
+            <mat-card-title>Academic Data</mat-card-title>
+            <mat-form-field>
+              <input matInput type="text" formControlName="addmisionDate" placeholder="addmisionDate">
+              <mat-error *ngIf="form.get('addmisionDate').invalid">Please enter addmision Date.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <textarea matInput formControlName="addmissionNo" placeholder="addmissionNo"></textarea>
+              <mat-error *ngIf="form.get('addmissionNo').invalid">Please enter a addmissionNo.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <textarea matInput formControlName="leavingDate" placeholder="leavingDate"></textarea>
+              <mat-error *ngIf="form.get('leavingDate').invalid">Please enter leaving Date.</mat-error>
+            </mat-form-field>
+            <br /><br />
+
+          </mat-card>
+          <mat-card class="sectiondet">
+            <mat-card-title>Contact Details</mat-card-title>
+            <mat-form-field>
+              <textarea matInput formControlName="mobileNo" placeholder="mobileNo"></textarea>
+              <mat-error *ngIf="form.get('mobileNo').invalid">Please enter mobile No.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <textarea matInput formControlName="personalEmail" placeholder="personalEmail"></textarea>
+              <mat-error *ngIf="form.get('personalEmail').invalid">Please enter personal Email.</mat-error>
+            </mat-form-field>
+          </mat-card>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <button disabled mat-raised-button color="accent" *ngIf="isSave">
+      <mat-spinner [diameter]="35" class="save-spinner" *ngIf="isSave"></mat-spinner>
+    </button>
+    <button mat-raised-button color="accent" *ngIf="!isSave" type="submit">Update</button>
+  </form>
+</mat-card>

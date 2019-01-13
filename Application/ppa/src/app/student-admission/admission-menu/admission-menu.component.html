@@ -1,0 +1,37 @@
+<router-outlet>
+    <div id="content">
+        <mat-card>
+          <mat-card-title>
+            <h2>Grade 1 Admission</h2>
+            <br>
+          </mat-card-title>
+          <mat-card-content>
+            <div fxLayout="row" fxLayoutGap="1.5%" fxLayoutAlign="start center">
+                <h5>Submit a new admission form </h5>
+                <button mat-mini-fab (click)="onAddClick()"><mat-icon aria-label="Example icon-button with a plus icon">add</mat-icon></button>
+            </div>
+              <br>
+            <div *ngFor="let admission of admissions | admissonfilter: sessionMember : 'all'; let i=index">
+              <mat-card fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlex="90">
+                  <a [routerLink]="['/new-admissions/'+admission._id]">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start center" fxLayoutAlign.lt-md="start">
+                        <div fxFlex="80">
+                            <h6>Admission {{(i + 1)}} - {{admission.status}}</h6>
+                            <label>Applicant: {{admission.applicantName}}</label>
+                        </div>
+                        <h4 *ngIf="admission.status === 'Reviewed'">Marks: {{getTotalMarks(admission)}}</h4>
+                    </div>
+                  </a>
+                </div>
+                <button fxFlex="10" mat-button (click)="ondelete(admission._id)" *ngIf="admission.status === 'Pending'" color="warn">Delete</button>
+              </mat-card>
+              <br *ngIf="admissions.length > 1 && i !== admissions.length -1">
+              <mat-divider *ngIf="admissions.length > 1 && i !== admissions.length -1"></mat-divider>
+              <br *ngIf="admissions.length > 1 && i !== admissions.length -1">
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+</router-outlet>
